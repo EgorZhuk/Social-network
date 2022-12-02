@@ -1,9 +1,10 @@
 import React from 'react';
+import Rating from "./stars/Rating";
 
 const Content = () => {
     return (
         <div>
-            Content
+            <Rating/>
         </div>
     );
 };
