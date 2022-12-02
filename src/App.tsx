@@ -7,7 +7,7 @@ import Content from "./components/Content";
 function App() {
     return (
         <div>
-            <Header/>
+            <Header title={'This is my APP'}/>
             <Content/>
             <Footer/>
         </div>
