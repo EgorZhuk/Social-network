@@ -4,6 +4,8 @@
     padding: 20px;
     display: flex;
     align-items: center;
+    border: #B9D7EA 1px solid;
+    border-radius: 5px;
 }
 
 .header img {

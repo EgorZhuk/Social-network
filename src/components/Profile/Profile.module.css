@@ -1,6 +1,9 @@
 .content {
     grid-area: content;
     background-color: #D6E6F2;
+    border: #B9D7EA 1px solid;
+    border-radius: 5px;
+    overflow: hidden;
 }
 
 .contentImage {

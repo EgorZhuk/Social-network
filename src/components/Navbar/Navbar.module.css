@@ -2,14 +2,21 @@
     grid-area: nav;
     background-color: #D6E6F2;
     padding: 20px;
+    border: #B9D7EA 1px solid;
+    border-radius: 5px;
 }
 
 .item {
     cursor: pointer;
     text-decoration: none;
+    margin-bottom: 10px;
 
 }
 
 .item:hover {
     color: #F7FBFC;
+}
+
+.active {
+    color: cornflowerblue;
 }

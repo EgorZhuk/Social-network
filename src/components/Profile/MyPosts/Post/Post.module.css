@@ -1,0 +1,16 @@
+.item {
+    color: cornflowerblue;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.item img {
+    width: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.item span {
+
+}
