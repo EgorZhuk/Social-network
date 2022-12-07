@@ -8,6 +8,10 @@
     border-radius: 5px;
 }
 
+.header span {
+    color: #769FCD;
+}
+
 .header img {
     height: 40px;
 }

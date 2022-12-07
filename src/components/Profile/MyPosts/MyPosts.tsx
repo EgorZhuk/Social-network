@@ -10,8 +10,8 @@ const MyPosts = () => {
         <input type="text" placeholder={'New post'}/>
         <button>Add post</button>
       </div>
-      <Post/>
-      <Post/>
+      <Post message="Yo! Howdy" likes={1}/>
+      <Post message="My first post" likes={13}/>
     </div>
   );
 };
