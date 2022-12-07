@@ -1,13 +1,11 @@
 import React from 'react';
 
 const Header = () => {
-    return (
-        <div>
-            <a href="#">Home</a>
-            <a href="#">News</a>
-            <a href="#">Feed</a>
-        </div>
-    );
+  return (
+    <header>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/d/db/Zeronet_logo.png" alt=""/>
+    </header>
+  );
 };
 
 export default Header;
