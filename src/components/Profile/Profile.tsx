@@ -1,22 +1,16 @@
 import React from 'react';
 import classes from './Profile.module.css';
 import MyPosts from './MyPosts/MyPosts';
+import {BgImage} from './BgImage/BgImage';
 
 const Profile = () => {
   return (
-    <div className={classes.content}>
+    <div>
+      <BgImage/>
       <div>
-        <img className={classes.contentImage}
-             src="https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
-             alt=""/>
+        ava+descr
       </div>
-      <div className={classes.contentContainer}>
-        <div>
-          ava+descr
-        </div>
-        <MyPosts/>
-      </div>
-
+      <MyPosts/>
     </div>
   );
 };

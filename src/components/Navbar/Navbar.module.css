@@ -13,10 +13,15 @@
 
 }
 
+.item a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .item:hover {
     color: #F7FBFC;
 }
 
-.active {
+.item .active {
     color: cornflowerblue;
 }
