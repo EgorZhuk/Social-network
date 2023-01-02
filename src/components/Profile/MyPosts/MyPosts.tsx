@@ -2,6 +2,19 @@ import React from 'react';
 import classes from './MyPosts.module.css';
 import Post from './Post/Post';
 
+type PostDataType = {
+  id: number
+  message: string
+  likes: number
+}
+let postData: Array<PostDataType> = [
+  {id: 1, message: 'Yo! Howdy', likes: 1},
+  {id: 2, message: 'My first post', likes: 13},
+  {id: 2, message: 'My first post', likes: 13},
+  {id: 2, message: 'My first post', likes: 13},
+  {id: 2, message: 'My first post', likes: 13},
+];
+
 const MyPosts = () => {
   return (
     <div className={classes.contentWrapper}>
@@ -10,8 +23,9 @@ const MyPosts = () => {
         <input type="text" placeholder={'New post'}/>
         <button>Add post</button>
       </div>
-      <Post message="Yo! Howdy" likes={1}/>
-      <Post message="My first post" likes={13}/>
+      {
+        postData.map(el => <Post message={el.message} likes={el.likes}/>)
+      }
     </div>
   );
 };
