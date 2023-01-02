@@ -4,9 +4,9 @@ import Post from './Post/Post';
 
 const MyPosts = () => {
   return (
-    <div>
-      <div>My posts</div>
-      <div>
+    <div className={classes.contentWrapper}>
+      <h3>My posts</h3>
+      <div className={classes.addPost}>
         <input type="text" placeholder={'New post'}/>
         <button>Add post</button>
       </div>
