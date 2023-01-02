@@ -1,0 +1,38 @@
+
+.dialogs {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+    padding: 20px;
+}
+
+.dialogsItems {
+
+
+}
+
+.dialog {
+    cursor: pointer;
+    text-decoration: none;
+    margin-bottom: 10px;
+    color: inherit;
+}
+
+.dialog a {
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+
+}
+
+.dialog .active {
+    color: cornflowerblue;
+}
+
+
+.messages {
+
+}
+
+.message {
+
+}
