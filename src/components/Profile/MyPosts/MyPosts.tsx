@@ -1,21 +1,11 @@
 import React from 'react';
 import classes from './MyPosts.module.css';
 import Post from './Post/Post';
+import {PostData} from '../../../index';
 
-type PostDataType = {
-  id: number
-  message: string
-  likes: number
-}
-let postData: Array<PostDataType> = [
-  {id: 1, message: 'Yo! Howdy', likes: 1},
-  {id: 2, message: 'My first post', likes: 13},
-  {id: 2, message: 'My first post', likes: 13},
-  {id: 2, message: 'My first post', likes: 13},
-  {id: 2, message: 'My first post', likes: 13},
-];
+const MyPosts = (props: PostData) => {
 
-const MyPosts = () => {
+  let renderedPost = props.postData.map(el => <Post key={el.id} message={el.message} likes={el.likes}/>);
   return (
     <div className={classes.contentWrapper}>
       <h3>My posts</h3>
@@ -23,9 +13,7 @@ const MyPosts = () => {
         <input type="text" placeholder={'New post'}/>
         <button>Add post</button>
       </div>
-      {
-        postData.map(el => <Post message={el.message} likes={el.likes}/>)
-      }
+      {renderedPost}
     </div>
   );
 };
