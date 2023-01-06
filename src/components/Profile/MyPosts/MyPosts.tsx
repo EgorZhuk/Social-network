@@ -1,11 +1,15 @@
 import React from 'react';
 import classes from './MyPosts.module.css';
 import Post from './Post/Post';
-import {PostData} from '../../../index';
+import {PostDataType} from '../../../redux/state';
 
-const MyPosts = (props: PostData) => {
+type PropsType = {
+  postData: Array<PostDataType>
+}
 
-  let renderedPost = props.postData.map(el => <Post key={el.id} message={el.message} likes={el.likes}/>);
+const MyPosts = (props: PropsType) => {
+
+  let renderedPost = props.postData.map(el => <Post id={el.id} message={el.message} likes={el.likes}/>);
   return (
     <div className={classes.contentWrapper}>
       <h3>My posts</h3>

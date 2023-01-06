@@ -3,49 +3,28 @@ import classes from './Navbar.module.css';
 import {NavLink} from 'react-router-dom';
 
 type NavBarLinkType = {
+  id: number
   name: string
   path: string
 }
 
 const linkData: Array<NavBarLinkType> = [
-  {name: 'Profile', path: '/profile'},
-  {name: 'Messages', path: '/dialogs'},
-  {name: 'News', path: '/news'},
-  {name: 'Music', path: '/music'},
-  {name: 'Settings', path: '/settings'},
+  {id: 1, name: 'Profile', path: '/profile'},
+  {id: 2, name: 'Messages', path: '/dialogs'},
+  {id: 3, name: 'News', path: '/news'},
+  {id: 4, name: 'Music', path: '/music'},
+  {id: 5, name: 'Settings', path: '/settings'},
 ];
 
 
 
 const Navbar = () => {
-  return (
-    <nav className={classes.nav}>
-      {
-        linkData.map(el => {
-          return (
-            <div className={classes.item}>
-              <NavLink to={el.path} activeClassName={classes.active}>{el.name}</NavLink>
-            </div>
-          );
-        })
-      }
-      {/*<div className={classes.item}>*/}
-      {/*  <NavLink to="/profile" activeClassName={classes.active}>Profile</NavLink>*/}
-      {/*</div>*/}
-      {/*<div className={classes.item}>*/}
-      {/*  <NavLink to="/dialogs" activeClassName={classes.active}>Messages</NavLink>*/}
-      {/*</div>*/}
-      {/*<div className={classes.item}>*/}
-      {/*  <NavLink to="/news" activeClassName={classes.active}>News</NavLink>*/}
-      {/*</div>*/}
-      {/*<div className={classes.item}>*/}
-      {/*  <NavLink to="/music" activeClassName={classes.active}>Music</NavLink>*/}
-      {/*</div>*/}
-      {/*<div className={classes.item}>*/}
-      {/*  <NavLink to="/settings" activeClassName={classes.active}>Settings</NavLink>*/}
-      {/*</div>*/}
-    </nav>
-  );
+  let navbarMenu = linkData.map(el => <div key={el.id} className={classes.item}>
+    <NavLink to={el.path} activeClassName={classes.active}>{el.name}</NavLink>
+  </div>);
+  return <nav className={classes.nav}>
+    {navbarMenu}
+  </nav>;
 };
 
 export default Navbar;
