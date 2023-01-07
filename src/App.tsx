@@ -9,6 +9,7 @@ import {News} from './components/News/News';
 import {Music} from './components/Music/Music';
 import {Settings} from './components/Settings/Settings';
 import {StateType} from './redux/state';
+import {Friends} from './components/Friends/Friends';
 
 type PropsType = {
   // postData: Array<PostDataType>
@@ -17,21 +18,30 @@ type PropsType = {
   state: StateType
 }
 
+// сделать страницу сообщений с аватарками
+// в диалогах сделать один стейт для передачи в пропс
+//в навбаре сделать блок Friends и соответственно внести в стейт
+
 function App(props: PropsType) {
 
   return (
     <BrowserRouter>
       <div className="app-wrapper">
         <Header/>
-        <Navbar/>
+        <Navbar friendsData={props.state.friendsPage.friendsData}/>
         <div className="app-wrapper-content">
           <Route path="/profile" render={() => <Profile postData={props.state.profilePage.postData}/>}/>
           <Route path="/dialogs" render={() => <Dialogs
-            messagesData={props.state.dialogPage.messagesData}
-            dialogsData={props.state.dialogPage.dialogsData}/>}/>
+            state={props.state.dialogPage}
+            // messagesData={props.state.dialogPage.messagesData}
+            // dialogsData={props.state.dialogPage.dialogsData}
+
+          />}/>
           <Route path="/news" render={() => <News/>}/>
           <Route path="/music" render={() => <Music/>}/>
           <Route path="/settings" render={() => <Settings/>}/>
+          {/*<Route path="/friends" render={() => <Friends/>}/>*/}
+
         </div>
       </div>
     </BrowserRouter>
