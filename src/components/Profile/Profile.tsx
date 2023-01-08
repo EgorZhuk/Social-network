@@ -9,13 +9,17 @@ import {PostDataType} from '../../redux/state';
 
 type AllPropsType = {
   postData: Array<PostDataType>
+  addPost: (post: string) => void
 }
 const Profile = (props: AllPropsType) => {
   return (
     <div>
       <BgImage/>
       <ProfileInfo/>
-      <MyPosts postData={props.postData}/>
+      <MyPosts
+        postData={props.postData}
+        addPost={props.addPost}
+      />
     </div>
   );
 };

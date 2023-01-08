@@ -8,14 +8,16 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import {News} from './components/News/News';
 import {Music} from './components/Music/Music';
 import {Settings} from './components/Settings/Settings';
-import {StateType} from './redux/state';
 import {Friends} from './components/Friends/Friends';
+import {StateType} from './redux/state';
+
 
 type PropsType = {
   // postData: Array<PostDataType>
   // dialogsData: Array<DialogsDataType>
   // messagesData: Array<MessagesDataType>
   state: StateType
+  addPost: (post: string) => void
 }
 
 // сделать страницу сообщений с аватарками
@@ -30,7 +32,10 @@ function App(props: PropsType) {
         <Header/>
         <Navbar friendsData={props.state.friendsPage.friendsData}/>
         <div className="app-wrapper-content">
-          <Route path="/profile" render={() => <Profile postData={props.state.profilePage.postData}/>}/>
+          <Route path="/profile" render={() => <Profile
+            postData={props.state.profilePage.postData}
+            addPost={props.addPost}
+          />}/>
           <Route path="/dialogs" render={() => <Dialogs
             state={props.state.dialogPage}
             // messagesData={props.state.dialogPage.messagesData}
