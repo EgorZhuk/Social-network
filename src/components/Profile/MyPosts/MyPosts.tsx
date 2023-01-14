@@ -1,4 +1,4 @@
-import React, {ChangeEvent, RefObject, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import classes from './MyPosts.module.css';
 import Post from './Post/Post';
 import {PostDataType} from '../../../redux/state';
@@ -16,18 +16,19 @@ const MyPosts = (props: PropsType) => {
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setNewPost(e.currentTarget.value);
+
   };
 
   const onClickHandler = () => {
     props.addPost(newPost);
-    setNewPost('');
+
   };
 
   return (
     <div className={classes.contentWrapper}>
       <h3>My posts</h3>
       <div className={classes.addPost}>
-        <input onChange={onChangeHandler} type="text" placeholder={'New post'}/>
+        <input onChange={onChangeHandler} type="text"/>
         <button onClick={onClickHandler}>Add post
         </button>
       </div>
