@@ -6,13 +6,13 @@ import {StateType} from './redux/state';
 import React from 'react';
 import {BrowserRouter} from 'react-router-dom';
 
-const rerenderEntireTree = (state: StateType) => {
+export const rerenderEntireTree = (state: StateType) => {
 
   ReactDOM.render(
     <BrowserRouter>
       <App
         state={state}
-        addPost={store.addPost.bind(store)}
+        dispatch={store.dispatch.bind(store)}
       />
     </BrowserRouter>
     ,

@@ -1,26 +1,32 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, DetailedHTMLProps, RefObject, TextareaHTMLAttributes} from 'react';
 import classes from './MyPosts.module.css';
 import Post from './Post/Post';
-import {PostDataType} from '../../../redux/state';
+import {ActionsTypes, ProfilePageStateType} from '../../../redux/state';
 
 type PropsType = {
-  postData: Array<PostDataType>
-  addPost: (post: string) => void
+  postData: ProfilePageStateType
+  dispatch: (action: ActionsTypes) => void
 }
 
 const MyPosts = (props: PropsType) => {
 
-  let renderedPosts = props.postData.map(el => <Post id={el.id} message={el.message} likes={el.likes}/>);
+  let renderedPosts = props.postData.postData.map((el, index) => <Post key={index} id={el.id} message={el.message}
+                                                                       likes={el.likes}/>);
 
-  let [newPost, setNewPost] = useState<string>('');
-
-  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewPost(e.currentTarget.value);
-
-  };
-
+  let newPostText = React.createRef<HTMLTextAreaElement>();
+  // const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  //   let newPostText = e.currentTarget.value;
+  //   return text = newPostText;
+  // };
   const onClickHandler = () => {
-    props.addPost(newPost);
+    if (newPostText.current) {
+      let action: ActionsTypes = {
+        type: 'ADD-POST',
+        newPostText: newPostText.current.value
+      };
+      props.dispatch(action);
+      newPostText.current.value = '';
+    }
 
   };
 
@@ -28,7 +34,7 @@ const MyPosts = (props: PropsType) => {
     <div className={classes.contentWrapper}>
       <h3>My posts</h3>
       <div className={classes.addPost}>
-        <input onChange={onChangeHandler} type="text"/>
+        <textarea ref={newPostText} placeholder={props.postData.postText}/>
         <button onClick={onClickHandler}>Add post
         </button>
       </div>

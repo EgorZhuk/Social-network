@@ -8,17 +8,16 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import {News} from './components/News/News';
 import {Music} from './components/Music/Music';
 import {Settings} from './components/Settings/Settings';
-import {StateType} from './redux/state';
+import {ActionsTypes, StateType} from './redux/state';
 
 
 type PropsType = {
   state: StateType
-  addPost: (post: string) => void
+  // addPost: (post: string) => void
+  dispatch: (action: ActionsTypes) => void
 }
 
 function App(props: PropsType) {
-
-
   return (
     <BrowserRouter>
       <div className="app-wrapper">
@@ -26,8 +25,8 @@ function App(props: PropsType) {
         <Navbar friendsData={props.state.friendsPage.friendsData}/>
         <div className="app-wrapper-content">
           <Route path="/profile" render={() => <Profile
-            postData={props.state.profilePage.postData}
-            addPost={props.addPost}
+            postData={props.state.profilePage}
+            dispatch={props.dispatch}
           />}/>
           <Route path="/dialogs" render={() => <Dialogs
             state={props.state.dialogPage}

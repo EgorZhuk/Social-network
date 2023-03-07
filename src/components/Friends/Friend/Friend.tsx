@@ -13,8 +13,7 @@ export const Friend = (props: PropsType) => {
       <img src={el.url} className={classes.img} alt={'friendAvatar'}/>
       <p>{el.name}</p>
     </div>);
-  
-  console.log(friendsForRender);
+
   return (
     <div className={classes.friendsWrapper}>
       {friendsForRender}
