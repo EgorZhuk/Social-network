@@ -1,17 +1,22 @@
 import React, {ChangeEvent, DetailedHTMLProps, RefObject, TextareaHTMLAttributes} from 'react';
 import classes from './MyPosts.module.css';
 import Post from './Post/Post';
-import {ActionsTypes, ProfilePageStateType} from '../../../redux/state';
+import {ActionsTypes, addPostAC, ProfilePageStateType} from '../../../redux/state';
+import {text} from 'stream/consumers';
 
 type PropsType = {
   postData: ProfilePageStateType
   dispatch: (action: ActionsTypes) => void
 }
 
+
 const MyPosts = (props: PropsType) => {
 
-  let renderedPosts = props.postData.postData.map((el, index) => <Post key={index} id={el.id} message={el.message}
-                                                                       likes={el.likes}/>);
+  let renderedPosts = props.postData.postData.map((el, index) => <Post
+    key={index}
+    id={el.id}
+    message={el.message}
+    likes={el.likes}/>);
 
   let newPostText = React.createRef<HTMLTextAreaElement>();
   // const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -20,11 +25,7 @@ const MyPosts = (props: PropsType) => {
   // };
   const onClickHandler = () => {
     if (newPostText.current) {
-      let action: ActionsTypes = {
-        type: 'ADD-POST',
-        newPostText: newPostText.current.value
-      };
-      props.dispatch(action);
+      props.dispatch(addPostAC(newPostText.current.value));
       newPostText.current.value = '';
     }
 

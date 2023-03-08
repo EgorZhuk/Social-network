@@ -1,11 +1,5 @@
-export type StoreType = {
-  _state: StateType
-  _callSubscriber: (state: StateType) => void
-  addPost: (postMessage: string) => void
-  subscribe: (callback: (state: StateType) => void) => void
-  getState: () => StateType
-  dispatch: (action: ActionsTypes) => void
-}
+const ADD_POST = 'ADD-POST';
+const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT';
 
 let store: StoreType = {
   _state: {
@@ -97,9 +91,8 @@ let store: StoreType = {
   getState() {
     return this._state;
   },
-
   dispatch(action) {
-    if (action.type === 'ADD-POST') {
+    if (action.type === ADD_POST) {
       let newPost = {
         id: 5,
         message: action.newPostText,
@@ -107,7 +100,7 @@ let store: StoreType = {
       };
       this._state.profilePage.postData.unshift(newPost);
       this._callSubscriber(this._state);
-    } else if (action.type === 'UPDATE-POST-TEXT') {
+    } else if (action.type === UPDATE_POST_TEXT) {
       this._state.profilePage.postText = action.newText;
       this._callSubscriber(this._state);
     }
@@ -117,15 +110,14 @@ let store: StoreType = {
 export type ActionsTypes =
   AddPostActionType | UpdatePostTextActionType
 
+type AddPostActionType = ReturnType<typeof addPostAC>
+type UpdatePostTextActionType = ReturnType<typeof updatePostTextAC>
 
-type AddPostActionType = {
-  type: 'ADD-POST'
-  newPostText: string
-}
-type UpdatePostTextActionType = {
-  type: 'UPDATE-POST-TEXT'
-  newText: string
-}
+export const addPostAC = (newPostText: string) =>
+  ({type: ADD_POST, newPostText: newPostText} as const);
+export const updatePostTextAC = (newText: string) => ({
+  type: UPDATE_POST_TEXT, newText: newText
+} as const);
 
 export type PostDataType = {
   id: number
@@ -162,6 +154,15 @@ type DialogsPageStateType = {
 
 type FriendsPageStateType = {
   friendsData: Array<FriendsDataType>,
+}
+
+export type StoreType = {
+  _state: StateType
+  _callSubscriber: (state: StateType) => void
+  addPost: (postMessage: string) => void
+  subscribe: (callback: (state: StateType) => void) => void
+  getState: () => StateType
+  dispatch: (action: ActionsTypes) => void
 }
 
 export type StateType = {
