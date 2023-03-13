@@ -2,7 +2,6 @@ import React, {ChangeEvent, DetailedHTMLProps, RefObject, TextareaHTMLAttributes
 import classes from './MyPosts.module.css';
 import Post from './Post/Post';
 import {ActionsTypes, addPostAC, ProfilePageStateType} from '../../../redux/state';
-import {text} from 'stream/consumers';
 
 type PropsType = {
   postData: ProfilePageStateType

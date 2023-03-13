@@ -1,5 +1,7 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT';
+const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
+const SEND_MESSAGE = 'SEND-MESSAGE';
 
 let store: StoreType = {
   _state: {
@@ -43,7 +45,8 @@ let store: StoreType = {
           name: 'Five',
           url: 'https://images.freeimages.com/365/images/istock/previews/1009/100996291-male-avatar-profile-picture-vector.jpg'
         }
-      ]
+      ],
+      newMessageBody: ''
     },
     friendsPage: {
       friendsData:
@@ -103,18 +106,36 @@ let store: StoreType = {
     } else if (action.type === UPDATE_POST_TEXT) {
       this._state.profilePage.postText = action.newText;
       this._callSubscriber(this._state);
+    } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
+      this._state.dialogPage.newMessageBody = action.newMessageBody;
+      this._callSubscriber(this._state);
+    } else if (action.type === SEND_MESSAGE) {
+      let body = this._state.dialogPage.newMessageBody;
+      this._state.dialogPage.messagesData.push({id: 4, message: body});
+      this._state.dialogPage.newMessageBody = '';
+      this._callSubscriber(this._state);
     }
   }
 };
 
 export type ActionsTypes =
-  AddPostActionType | UpdatePostTextActionType
+  AddPostActionType
+  | UpdatePostTextActionType
+  | UpdateNewMessageBodyActionType
+  | SendNewMessageActionType
 
 type AddPostActionType = ReturnType<typeof addPostAC>
 type UpdatePostTextActionType = ReturnType<typeof updatePostTextAC>
+type UpdateNewMessageBodyActionType = ReturnType<typeof updateNewMessageBodyAC>
+type SendNewMessageActionType = ReturnType<typeof sendNewMessageAC>
 
 export const addPostAC = (newPostText: string) =>
   ({type: ADD_POST, newPostText: newPostText} as const);
+export const updateNewMessageBodyAC = (newMessage: string) => ({
+  type: UPDATE_NEW_MESSAGE_BODY,
+  newMessageBody: newMessage
+} as const);
+export const sendNewMessageAC = () => ({type: SEND_MESSAGE} as const);
 export const updatePostTextAC = (newText: string) => ({
   type: UPDATE_POST_TEXT, newText: newText
 } as const);
@@ -150,6 +171,7 @@ export type ProfilePageStateType = {
 type DialogsPageStateType = {
   messagesData: Array<MessagesDataType>
   dialogsData: Array<DialogsDataType>
+  newMessageBody: string
 }
 
 type FriendsPageStateType = {
