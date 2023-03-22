@@ -1,7 +1,8 @@
 import React, {ChangeEvent, DetailedHTMLProps, RefObject, TextareaHTMLAttributes} from 'react';
 import classes from './MyPosts.module.css';
 import Post from './Post/Post';
-import {ActionsTypes, addPostAC, ProfilePageStateType} from '../../../redux/state';
+import {ActionsTypes, ProfilePageStateType} from '../../../redux/state';
+import {addPostAC, updatePostTextAC} from '../../../redux/profile-reducer';
 
 type PropsType = {
   postData: ProfilePageStateType
@@ -17,24 +18,20 @@ const MyPosts = (props: PropsType) => {
     message={el.message}
     likes={el.likes}/>);
 
-  let newPostText = React.createRef<HTMLTextAreaElement>();
-  // const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-  //   let newPostText = e.currentTarget.value;
-  //   return text = newPostText;
-  // };
-  const onClickHandler = () => {
-    if (newPostText.current) {
-      props.dispatch(addPostAC(newPostText.current.value));
-      newPostText.current.value = '';
-    }
+  const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    let newPost = e.currentTarget.value;
+    props.dispatch(updatePostTextAC(newPost));
+  };
 
+  const onClickHandler = () => {
+    props.dispatch(addPostAC(props.postData.postText));
   };
 
   return (
     <div className={classes.contentWrapper}>
       <h3>My posts</h3>
       <div className={classes.addPost}>
-        <textarea ref={newPostText} placeholder={props.postData.postText}/>
+        <textarea onChange={onChangeHandler} value={props.postData.postText} placeholder={'Enter post text'}/>
         <button onClick={onClickHandler}>Add post
         </button>
       </div>

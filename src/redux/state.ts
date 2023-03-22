@@ -1,7 +1,5 @@
-const ADD_POST = 'ADD-POST';
-const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT';
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
-const SEND_MESSAGE = 'SEND-MESSAGE';
+import {addPostAC, profileReducer, updatePostTextAC} from './profile-reducer';
+import {dialogsReducer, sendNewMessageAC, updateNewMessageBodyAC} from './dialogs-reducer';
 
 let store: StoreType = {
   _state: {
@@ -11,7 +9,7 @@ let store: StoreType = {
         {id: 2, message: 'My first post', likes: 13},
         {id: 2, message: 'My first post', likes: 13},
       ],
-      postText: 'Enter post',//?????
+      postText: '', //?????
     },
     dialogPage: {
       messagesData: [
@@ -23,60 +21,59 @@ let store: StoreType = {
         {
           id: 1,
           name: 'One',
-          url: 'https://www.pngall.com/wp-content/uploads/12/Avatar-Profile-PNG-Photos.png'
+          url: 'https://www.pngall.com/wp-content/uploads/12/Avatar-Profile-PNG-Photos.png',
         },
         {
           id: 2,
           name: 'Two',
-          url: 'https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg'
+          url: 'https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg',
         },
         {
           id: 3,
           name: 'Three',
-          url: 'https://previews.123rf.com/images/metelsky/metelsky1809/metelsky180900233/109815470-man-avatar-profile-male-face-icon-vector-illustration-.jpg'
+          url: 'https://previews.123rf.com/images/metelsky/metelsky1809/metelsky180900233/109815470-man-avatar-profile-male-face-icon-vector-illustration-.jpg',
         },
         {
           id: 4,
           name: 'Four',
-          url: 'https://thumbs.dreamstime.com/b/female-avatar-profile-picture-vector-female-avatar-profile-picture-vector-102690279.jpg'
+          url: 'https://thumbs.dreamstime.com/b/female-avatar-profile-picture-vector-female-avatar-profile-picture-vector-102690279.jpg',
         },
         {
           id: 5,
           name: 'Five',
-          url: 'https://images.freeimages.com/365/images/istock/previews/1009/100996291-male-avatar-profile-picture-vector.jpg'
-        }
+          url: 'https://images.freeimages.com/365/images/istock/previews/1009/100996291-male-avatar-profile-picture-vector.jpg',
+        },
       ],
-      newMessageBody: ''
+      newMessageBody: '',
     },
     friendsPage: {
-      friendsData:
-        [
-          {
-            id: 1,
-            name: 'One',
-            url: 'https://www.pngall.com/wp-content/uploads/12/Avatar-Profile-PNG-Photos.png'
-          },
-          {
-            id: 2,
-            name: 'Two',
-            url: 'https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg'
-          },
-          {
-            id: 3,
-            name: 'Three',
-            url: 'https://previews.123rf.com/images/metelsky/metelsky1809/metelsky180900233/109815470-man-avatar-profile-male-face-icon-vector-illustration-.jpg'
-          },
-          {
-            id: 4,
-            name: 'Four',
-            url: 'https://thumbs.dreamstime.com/b/female-avatar-profile-picture-vector-female-avatar-profile-picture-vector-102690279.jpg'
-          },
-          {
-            id: 5,
-            name: 'Five',
-            url: 'https://images.freeimages.com/365/images/istock/previews/1009/100996291-male-avatar-profile-picture-vector.jpg'
-          }
-        ]
+      friendsData: [
+        {
+          id: 1,
+          name: 'One',
+          url: 'https://www.pngall.com/wp-content/uploads/12/Avatar-Profile-PNG-Photos.png',
+        },
+        {
+          id: 2,
+          name: 'Two',
+          url: 'https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg',
+        },
+        {
+          id: 3,
+          name: 'Three',
+          url: 'https://previews.123rf.com/images/metelsky/metelsky1809/metelsky180900233/109815470-man-avatar-profile-male-face-icon-vector-illustration-.jpg',
+        },
+        {
+          id: 4,
+          name: 'Four',
+          url: 'https://thumbs.dreamstime.com/b/female-avatar-profile-picture-vector-female-avatar-profile-picture-vector-102690279.jpg',
+        },
+        {
+          id: 5,
+          name: 'Five',
+          url: 'https://images.freeimages.com/365/images/istock/previews/1009/100996291-male-avatar-profile-picture-vector.jpg',
+        },
+      ],
     },
   },
   _callSubscriber() {
@@ -95,102 +92,76 @@ let store: StoreType = {
     return this._state;
   },
   dispatch(action) {
-    if (action.type === ADD_POST) {
-      let newPost = {
-        id: 5,
-        message: action.newPostText,
-        likes: 0
-      };
-      this._state.profilePage.postData.unshift(newPost);
-      this._callSubscriber(this._state);
-    } else if (action.type === UPDATE_POST_TEXT) {
-      this._state.profilePage.postText = action.newText;
-      this._callSubscriber(this._state);
-    } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-      this._state.dialogPage.newMessageBody = action.newMessageBody;
-      this._callSubscriber(this._state);
-    } else if (action.type === SEND_MESSAGE) {
-      let body = this._state.dialogPage.newMessageBody;
-      this._state.dialogPage.messagesData.push({id: 4, message: body});
-      this._state.dialogPage.newMessageBody = '';
-      this._callSubscriber(this._state);
-    }
-  }
+    this._state.profilePage = profileReducer(this._state.profilePage, action);
+    this._state.dialogPage = dialogsReducer(this._state.dialogPage, action);
+    this._callSubscriber(this._state);
+  },
 };
 
 export type ActionsTypes =
-  AddPostActionType
+  | AddPostActionType
   | UpdatePostTextActionType
   | UpdateNewMessageBodyActionType
-  | SendNewMessageActionType
+  | SendNewMessageActionType;
 
-type AddPostActionType = ReturnType<typeof addPostAC>
-type UpdatePostTextActionType = ReturnType<typeof updatePostTextAC>
-type UpdateNewMessageBodyActionType = ReturnType<typeof updateNewMessageBodyAC>
-type SendNewMessageActionType = ReturnType<typeof sendNewMessageAC>
+type AddPostActionType = ReturnType<typeof addPostAC>;
+type UpdatePostTextActionType = ReturnType<typeof updatePostTextAC>;
+type UpdateNewMessageBodyActionType = ReturnType<typeof updateNewMessageBodyAC>;
+type SendNewMessageActionType = ReturnType<typeof sendNewMessageAC>;
 
-export const addPostAC = (newPostText: string) =>
-  ({type: ADD_POST, newPostText: newPostText} as const);
-export const updateNewMessageBodyAC = (newMessage: string) => ({
-  type: UPDATE_NEW_MESSAGE_BODY,
-  newMessageBody: newMessage
-} as const);
-export const sendNewMessageAC = () => ({type: SEND_MESSAGE} as const);
-export const updatePostTextAC = (newText: string) => ({
-  type: UPDATE_POST_TEXT, newText: newText
-} as const);
+
+
 
 export type PostDataType = {
-  id: number
-  message: string
-  likes: number
-}
+  id: number;
+  message: string;
+  likes: number;
+};
 
 export type MessagesDataType = {
-  id?: number
-  message: string
-}
+  id?: number;
+  message: string;
+};
 
 export type DialogsDataType = {
-  id?: number
-  name: string
-  url: string
-}
+  id?: number;
+  name: string;
+  url: string;
+};
 
 export type FriendsDataType = {
-  id?: number
-  name: string
-  url: string
-}
+  id?: number;
+  name: string;
+  url: string;
+};
 
 export type ProfilePageStateType = {
-  postData: Array<PostDataType>,
-  postText: string
-}
+  postData: Array<PostDataType>;
+  postText: string;
+};
 
-type DialogsPageStateType = {
-  messagesData: Array<MessagesDataType>
-  dialogsData: Array<DialogsDataType>
-  newMessageBody: string
-}
+export type DialogsPageStateType = {
+  messagesData: Array<MessagesDataType>;
+  dialogsData: Array<DialogsDataType>;
+  newMessageBody: string;
+};
 
 type FriendsPageStateType = {
-  friendsData: Array<FriendsDataType>,
-}
+  friendsData: Array<FriendsDataType>;
+};
 
 export type StoreType = {
-  _state: StateType
-  _callSubscriber: (state: StateType) => void
-  addPost: (postMessage: string) => void
-  subscribe: (callback: (state: StateType) => void) => void
-  getState: () => StateType
-  dispatch: (action: ActionsTypes) => void
-}
+  _state: StateType;
+  _callSubscriber: (state: StateType) => void;
+  addPost: (postMessage: string) => void;
+  subscribe: (callback: (state: StateType) => void) => void;
+  getState: () => StateType;
+  dispatch: (action: ActionsTypes) => void;
+};
 
 export type StateType = {
-  profilePage: ProfilePageStateType
-  dialogPage: DialogsPageStateType
-  friendsPage: FriendsPageStateType
-
-}
+  profilePage: ProfilePageStateType;
+  dialogPage: DialogsPageStateType;
+  friendsPage: FriendsPageStateType;
+};
 export default store;

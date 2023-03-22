@@ -6,9 +6,9 @@ import {
   ActionsTypes,
   DialogsDataType,
   MessagesDataType,
-  sendNewMessageAC,
-  updateNewMessageBodyAC
+
 } from '../../redux/state';
+import {sendNewMessageAC, updateNewMessageBodyAC} from '../../redux/dialogs-reducer';
 
 type StateType = {
   state: PropsType
@@ -42,7 +42,7 @@ export const Dialogs = (props: StateType) => {
         {messagesData}
       </div>
       <div>
-        <textarea onChange={(e) => onChangeHandler(e)} placeholder={'Enter your message'}
+        <textarea onChange={onChangeHandler} placeholder={'Enter your message'}
                   value={props.state.newMessageBody}></textarea>
         <button onClick={onClickHandler}>Send message</button>
       </div>
