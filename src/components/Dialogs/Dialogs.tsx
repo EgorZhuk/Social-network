@@ -2,26 +2,29 @@ import React, {ChangeEvent} from 'react';
 import classes from './Dialogs.module.css';
 import {DialogItem} from './DialogItem/DialogItem';
 import {Message} from './Message/Message';
-import {ActionsTypes, DialogsPageStateType} from '../../redux/store';
+import {ActionsTypes, DialogsDataType, DialogsPageStateType, MessagesDataType} from '../../redux/store';
 import {sendNewMessageAC, updateNewMessageBodyAC} from '../../redux/dialogs-reducer';
 
 type DialogsStateType = {
-  dialogData: DialogsPageStateType
-  dispatch: (action: ActionsTypes) => void
+  dialogsData: DialogsDataType[]
+  messageData: MessagesDataType[]
+  newMessageBody: string
+  sendMessage: () => void
+  updateMessageBody: (body: string) => void
 }
 
 
 export const Dialogs = (props: DialogsStateType) => {
   const onChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
     let body = event.currentTarget.value;
-    props.dispatch(updateNewMessageBodyAC(body));
+    props.updateMessageBody(body);
   };
   const onClickHandler = () => {
-    props.dispatch(sendNewMessageAC());
+    props.sendMessage();
   };
-  let dialogsData = props.dialogData.dialogsData.map(el => <DialogItem key={el.id} name={el.name} id={el.id}
-                                                                       url={el.url}/>);
-  let messagesData = props.dialogData.messagesData.map(el => <Message key={el.id} message={el.message}/>);
+  let dialogsData = props.dialogsData.map(el => <DialogItem key={el.id} name={el.name} id={el.id}
+                                                            url={el.url}/>);
+  let messagesData = props.messageData.map(el => <Message key={el.id} message={el.message}/>);
   return (
     <div className={classes.dialogs}>
       <div className={classes.dialogsItems}>
@@ -33,7 +36,7 @@ export const Dialogs = (props: DialogsStateType) => {
       </div>
       <div>
         <textarea onChange={onChangeHandler} placeholder={'Enter your message'}
-                  value={props.dialogData.newMessageBody}></textarea>
+                  value={props.newMessageBody}></textarea>
         <button onClick={onClickHandler}>Send message</button>
       </div>
     </div>
