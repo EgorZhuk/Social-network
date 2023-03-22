@@ -1,5 +1,5 @@
 import React from 'react';
-import {FriendsDataType} from '../../../redux/state';
+import {FriendsDataType} from '../../../redux/store';
 import classes from '../Friends.module.css';
 
 type PropsType = {

@@ -9,9 +9,9 @@ let store: StoreType = {
         {id: 2, message: 'My first post', likes: 13},
         {id: 2, message: 'My first post', likes: 13},
       ],
-      postText: '', //?????
+      postText: '', //post text buffer
     },
-    dialogPage: {
+    dialogsPage: {
       messagesData: [
         {id: 1, message: 'Hello'},
         {id: 2, message: 'How are you'},
@@ -44,7 +44,7 @@ let store: StoreType = {
           url: 'https://images.freeimages.com/365/images/istock/previews/1009/100996291-male-avatar-profile-picture-vector.jpg',
         },
       ],
-      newMessageBody: '',
+      newMessageBody: '', // message text buffer
     },
     friendsPage: {
       friendsData: [
@@ -75,6 +75,12 @@ let store: StoreType = {
         },
       ],
     },
+    sideBar: {
+      sideBarData: [
+        1,
+        2
+      ]
+    }
   },
   _callSubscriber() {
     console.log('State changed');
@@ -93,7 +99,7 @@ let store: StoreType = {
   },
   dispatch(action) {
     this._state.profilePage = profileReducer(this._state.profilePage, action);
-    this._state.dialogPage = dialogsReducer(this._state.dialogPage, action);
+    this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
     this._callSubscriber(this._state);
   },
 };
@@ -108,8 +114,6 @@ type AddPostActionType = ReturnType<typeof addPostAC>;
 type UpdatePostTextActionType = ReturnType<typeof updatePostTextAC>;
 type UpdateNewMessageBodyActionType = ReturnType<typeof updateNewMessageBodyAC>;
 type SendNewMessageActionType = ReturnType<typeof sendNewMessageAC>;
-
-
 
 
 export type PostDataType = {
@@ -145,8 +149,11 @@ export type DialogsPageStateType = {
   dialogsData: Array<DialogsDataType>;
   newMessageBody: string;
 };
+export type SideBarStateType = {
+  sideBarData: Array<number>
+}
 
-type FriendsPageStateType = {
+export type FriendsPageStateType = {
   friendsData: Array<FriendsDataType>;
 };
 
@@ -161,7 +168,9 @@ export type StoreType = {
 
 export type StateType = {
   profilePage: ProfilePageStateType;
-  dialogPage: DialogsPageStateType;
+  dialogsPage: DialogsPageStateType;
+
+  sideBar: SideBarStateType
   friendsPage: FriendsPageStateType;
 };
 export default store;

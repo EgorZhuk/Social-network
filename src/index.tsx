@@ -1,8 +1,8 @@
 import './index.css';
-import store from './redux/state';
+import store from './redux/redux-store';
 import ReactDOM from 'react-dom';
 import App from './App';
-import {StateType} from './redux/state';
+import {StateType} from './redux/store';
 import React from 'react';
 import {BrowserRouter} from 'react-router-dom';
 
@@ -22,4 +22,17 @@ export const rerenderEntireTree = (state: StateType) => {
 
 rerenderEntireTree(store.getState());
 
-store.subscribe(rerenderEntireTree);
+store.subscribe(() => {
+  let state = store.getState();
+  rerenderEntireTree(state);
+});
+
+// const renderTree = () => {
+//   ReactDOM.render(
+//     <React.StrictMode>
+//       <App store={store}/>
+//     </React.StrictMode>, document.getElementById('root')
+//   );
+// };
+// renderTree();
+// store.subscribe(renderTree);

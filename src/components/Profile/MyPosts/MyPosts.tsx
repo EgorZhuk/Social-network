@@ -1,7 +1,7 @@
 import React, {ChangeEvent, DetailedHTMLProps, RefObject, TextareaHTMLAttributes} from 'react';
 import classes from './MyPosts.module.css';
 import Post from './Post/Post';
-import {ActionsTypes, ProfilePageStateType} from '../../../redux/state';
+import {ActionsTypes, ProfilePageStateType} from '../../../redux/store';
 import {addPostAC, updatePostTextAC} from '../../../redux/profile-reducer';
 
 type PropsType = {
