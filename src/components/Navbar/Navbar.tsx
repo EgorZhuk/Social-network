@@ -1,8 +1,7 @@
 import React from 'react';
 import classes from './Navbar.module.css';
 import {NavLink} from 'react-router-dom';
-import {Friends} from '../Friends/Friends';
-import {FriendsDataType} from '../../redux/store';
+import FriendsContainer from './FriendsContainer';
 
 type NavBarLinkType = {
   id: number
@@ -10,9 +9,7 @@ type NavBarLinkType = {
   path: string
 }
 
-type PropsType = {
-  friendsData: FriendsDataType[]
-}
+
 
 const linkData: Array<NavBarLinkType> = [
   {id: 1, name: 'Profile', path: '/profile'},
@@ -24,13 +21,13 @@ const linkData: Array<NavBarLinkType> = [
 
 
 
-const Navbar = (props: PropsType) => {
+const Navbar = () => {
   let navbarMenu = linkData.map(el => <div key={el.id} className={classes.item}>
     <NavLink to={el.path} activeClassName={classes.active}>{el.name}</NavLink>
   </div>);
   return <nav className={classes.nav}>
     {navbarMenu}
-    <Friends friendsData={props.friendsData}/>
+    <FriendsContainer/>
   </nav>;
 };
 

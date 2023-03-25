@@ -1,13 +1,10 @@
 import React from 'react';
 import {Friend} from './Friend/Friend';
-import classes from './Friends.module.css';
-import {FriendsDataType} from '../../redux/store';
+import {FriendsPropsType} from '../Navbar/FriendsContainer';
 
-type PropsType = {
-  friendsData: FriendsDataType[]
-}
 
-export const Friends = (props: PropsType) => {
+
+export const Friends = (props: FriendsPropsType) => {
 
   return (
     <div>

@@ -3,9 +3,8 @@ import {profileReducer} from './profile-reducer';
 import {dialogsReducer} from './dialogs-reducer';
 import {sidebarReducer} from './sidebar-reducer';
 import {friendsReducer} from './friends-reducer';
-import {StoreType} from './store';
 
-const reducers = combineReducers({
+const rootReducer = combineReducers({
   profilePage: profileReducer,
   dialogsPage: dialogsReducer,
   sidebar: sidebarReducer,
@@ -14,8 +13,8 @@ const reducers = combineReducers({
 
 
 
-let store: StoreType = createStore(reducers);
+let store = createStore(rootReducer);
 
-export type RootState = ReturnType<typeof reducers>
+export type AppRootState = ReturnType<typeof rootReducer>
 
 export default store;

@@ -1,4 +1,6 @@
-import {ActionsTypes, SideBarStateType} from './store';
+type SideBarStateType = {
+  sideBarData: Array<number>
+}
 
 let initialState: SideBarStateType = {
   sideBarData: [
@@ -7,6 +9,6 @@ let initialState: SideBarStateType = {
   ]
 };
 
-export const sidebarReducer = (state: SideBarStateType = initialState, action: ActionsTypes) => {
+export const sidebarReducer = (state: SideBarStateType = initialState, action: any) => {
   return state;
 };

@@ -2,19 +2,9 @@ import React, {ChangeEvent} from 'react';
 import classes from './Dialogs.module.css';
 import {DialogItem} from './DialogItem/DialogItem';
 import {Message} from './Message/Message';
-import {ActionsTypes, DialogsDataType, DialogsPageStateType, MessagesDataType} from '../../redux/store';
-import {sendNewMessageAC, updateNewMessageBodyAC} from '../../redux/dialogs-reducer';
+import {DialogsPropsType} from './DialogsContainer';
 
-type DialogsStateType = {
-  dialogsData: DialogsDataType[]
-  messageData: MessagesDataType[]
-  newMessageBody: string
-  sendMessage: () => void
-  updateMessageBody: (body: string) => void
-}
-
-
-export const Dialogs = (props: DialogsStateType) => {
+export const Dialogs = (props: DialogsPropsType) => {
   const onChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
     let body = event.currentTarget.value;
     props.updateMessageBody(body);

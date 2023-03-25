@@ -1,4 +1,15 @@
-import {ActionsTypes, FriendsPageStateType} from './store';
+export type FriendsDataType = {
+  id?: number;
+  name: string;
+  url: string;
+};
+
+export type FriendsPageStateType = {
+  friendsData: Array<FriendsDataType>;
+};
+
+type FriendsPageActionsType = {}
+
 
 let initialState: FriendsPageStateType = {
   friendsData: [
@@ -30,6 +41,6 @@ let initialState: FriendsPageStateType = {
   ],
 };
 
-export const friendsReducer = (state: FriendsPageStateType = initialState, action: ActionsTypes) => {
+export const friendsReducer = (state: FriendsPageStateType = initialState, action: FriendsPageActionsType) => {
   return state;
 };

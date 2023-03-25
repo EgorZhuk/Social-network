@@ -1,19 +1,9 @@
 import React, {ChangeEvent} from 'react';
 import classes from './MyPosts.module.css';
-import {PostDataType} from '../../../redux/store';
 import Post from './Post/Post';
+import {MyPostsPropsType} from './MyPostsContainer';
 
-type PropsType = {
-  // postData: ProfilePageStateType
-  // dispatch: (action: ActionsTypes) => void
-  updateNewPostText: (text: string) => void
-  addPost: () => void
-  posts: PostDataType[]
-  value: string
-}
-
-
-const MyPosts = (props: PropsType) => {
+const MyPosts = (props: MyPostsPropsType) => {
 
   let renderedPosts = props.posts.map((el, index) => <Post
     key={index}
@@ -24,12 +14,10 @@ const MyPosts = (props: PropsType) => {
   const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     let newPost = e.currentTarget.value;
     props.updateNewPostText(newPost);
-    // props.dispatch(updatePostTextAC(newPost));
   };
 
   const onAddPost = () => {
     props.addPost();
-    // props.dispatch(addPostAC(props.postData.postText));
   };
 
   return (
