@@ -64,16 +64,20 @@ export const dialogsReducer = (state: DialogsPageStateType = initialState, actio
 
   switch (action.type) {
     case 'SEND-MESSAGE': {
-      let body = state.newMessageBody;
-      state.messagesData.push({id: 4, message: body});
-      state.newMessageBody = '';
-
-      return state;
+      return {
+        ...state,
+        ...state.messagesData[state.messagesData.push({id: 4, message: state.newMessageBody})],
+        newMessageBody: ''
+      };
     }
     case 'UPDATE-NEW-MESSAGE-BODY': {
-      state.newMessageBody = action.newMessageBody;
+      // let copyState = {...state};
+      // copyState.newMessageBody = action.newMessageBody;
 
-      return state;
+      return {
+        ...state,
+        newMessageBody: action.newMessageBody
+      };
     }
     default :
       return state;

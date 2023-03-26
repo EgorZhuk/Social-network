@@ -30,18 +30,23 @@ export const profileReducer = (state: ProfilePageStateType = initialState, actio
 
   switch (action.type) {
     case 'ADD-POST': {
-      let newPost = {
-        id: 5,
-        message: state.postText,
-        likes: 0,
+
+      return {
+        ...state,
+        ...state.postData[state.postData.unshift({
+          id: 5,
+          message: state.postText,
+          likes: 0,
+        })],
+
+        postText: '',
       };
-      state.postData.unshift(newPost);
-      state.postText = '';
-      return state;
     }
     case 'UPDATE-POST-TEXT': {
-      state.postText = action.newText;
-      return state;
+      return {
+        ...state,
+        postText: action.newText
+      };
     }
     default:
       return state;
