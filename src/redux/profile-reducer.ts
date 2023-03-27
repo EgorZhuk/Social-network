@@ -33,12 +33,11 @@ export const profileReducer = (state: ProfilePageStateType = initialState, actio
 
       return {
         ...state,
-        ...state.postData[state.postData.unshift({
+        postData: [{
           id: 5,
           message: state.postText,
           likes: 0,
-        })],
-
+        }, ...state.postData],
         postText: '',
       };
     }
