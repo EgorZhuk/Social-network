@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './Navbar.module.css';
 import {NavLink} from 'react-router-dom';
-import FriendsContainer from './FriendsContainer';
+import FriendsContainer from '../Friends/FriendsContainer';
 
 type NavBarLinkType = {
   id: number
@@ -17,6 +17,8 @@ const linkData: Array<NavBarLinkType> = [
   {id: 3, name: 'News', path: '/news'},
   {id: 4, name: 'Music', path: '/music'},
   {id: 5, name: 'Settings', path: '/settings'},
+  {id: 6, name: 'Users', path: '/users'},
+  {id: 7, name: 'Friends', path: '/friends'},
 ];
 
 

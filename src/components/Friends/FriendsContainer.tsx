@@ -1,13 +1,15 @@
 import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
-import {Friends} from '../Friends/Friends';
-import {FriendsDataType} from '../../redux/friends-reducer';
+import {Friends} from './Friends';
+import {FriendsDataType, showFriendsAC} from '../../redux/friends-reducer';
 import {AppRootState} from '../../redux/redux-store';
 
 type MapStateToPropsType = {
-  friendsData: FriendsDataType[]
+  friendsData: Array<FriendsDataType>
 }
-type MapDispatchToProps = {}
+type MapDispatchToProps = {
+  showFriends: () => void
+}
 
 export type FriendsPropsType = MapStateToPropsType & MapDispatchToProps
 const mapStateToProps = (state: AppRootState): MapStateToPropsType => {
@@ -17,7 +19,9 @@ const mapStateToProps = (state: AppRootState): MapStateToPropsType => {
   };
 };
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
-  return {};
+  return {
+    showFriends: () => dispatch(showFriendsAC())
+  };
 };
 
 const FriendsContainer = connect(mapStateToProps, mapDispatchToProps)(Friends);

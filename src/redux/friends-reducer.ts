@@ -1,3 +1,5 @@
+const SHOW_FRIENDS = 'SHOW-FRIENDS'
+
 export type FriendsDataType = {
   id?: number;
   name: string;
@@ -8,7 +10,10 @@ export type FriendsPageStateType = {
   friendsData: Array<FriendsDataType>;
 };
 
-type FriendsPageActionsType = {}
+type FriendsPageActionsType =
+  | ReturnType<typeof showFriendsAC>
+
+
 
 
 let initialState: FriendsPageStateType = {
@@ -42,5 +47,12 @@ let initialState: FriendsPageStateType = {
 };
 
 export const friendsReducer = (state: FriendsPageStateType = initialState, action: FriendsPageActionsType) => {
-  return state;
-};
+  switch (action.type) {
+    case SHOW_FRIENDS:
+      return {...state}
+    default:
+      return state;
+  }
+}
+
+export const showFriendsAC = () => ({type: SHOW_FRIENDS} as const);
