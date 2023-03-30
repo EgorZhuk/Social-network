@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './User.module.css';
+import user from '../../assets/images/user.png'
 
 type PropsType = {
   id: number,
@@ -15,18 +16,33 @@ type PropsType = {
   unFollowCalback: (userId: number) => void
 
 }
-const User = (props: PropsType) => {
+type ResponseUsersPropsType = {
+  id: number,
+  name: string,
+  followed: boolean,
+  photos: {
+    small: string | null,
+    large: string | null
+  },
+  status: string | null,
+  uniqueUrlName: string | null,
+  followCalback: (userId: number) => void
+  unFollowCalback: (userId: number) => void
+
+}
+const User = (props: ResponseUsersPropsType) => {
+  const buttonClass = (!props.followed) ? s.userFollowBtn : s.userUnfollowBtn;
   return (
     <div key={props.id} className={s.userCard}>
       <div className={s.userImage}>
         <img
-          src={props.photoUrl}
+          src={(props.photos.small) ? props.photos.small : user}
           alt="avatar"/>
-        {props.follow
-          ? <button onClick={() => {
+        {props.followed
+          ? <button className={buttonClass} onClick={() => {
             props.unFollowCalback(props.id);
           }}>Unfollow</button>
-          : <button onClick={() => {
+          : <button className={buttonClass} onClick={() => {
             props.followCalback(props.id);
           }}>Follow</button>
         }
@@ -35,12 +51,12 @@ const User = (props: PropsType) => {
 
       <div className={s.userInfo}>
         <div className={s.userTitle}>
-          <p className={s.userName}>{props.fullName}</p>
+          <p className={s.userName}>{props.name}</p>
           <p className={s.userStatus}>{props.status}</p>
         </div>
         <div className={s.userLocation}>
-          <p>{props.location.country},</p>
-          <p>{props.location.city}</p>
+          <p>{'props.location.city'},</p>
+          <p>{'props.location.country'}</p>
         </div>
       </div>
 

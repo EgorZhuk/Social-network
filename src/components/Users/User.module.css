@@ -36,7 +36,7 @@
 
 
 .userName {
-    font-weight: bold;
+    font-weight: bolder;
 
 }
 
@@ -45,18 +45,25 @@
     flex-direction: column;
     align-items: flex-end;
     justify-content: start;
+    font-weight: bold;
 
 
 }
 
 .userStatus {
-
+    color: #919191;
 }
 
 .userFollowBtn {
-
+    background-color: darkseagreen;
+    border: none;
+    border-radius: 5px;
+    margin-top: 5px;
 }
 
 .userUnfollowBtn {
-
+    background-color: lightcoral;
+    border: none;
+    border-radius: 5px;
+    margin-top: 5px;
 }
