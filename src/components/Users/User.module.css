@@ -1,14 +1,3 @@
-.userContainer {
-    margin: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.userContainer button {
-    padding: 5px;
-}
 
 .userCard {
     display: flex;
