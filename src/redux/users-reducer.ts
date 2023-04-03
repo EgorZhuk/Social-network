@@ -1,18 +1,14 @@
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
+const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
+const SET_TOTAL_COUNT = 'SET-TOTAL-COUNT';
 
-// export type usersType = {
-//   id: number,
-//   photoUrl: string
-//   follow: boolean
-//   fullName: string,
-//   status: string,
-//   location: {
-//     city: string,
-//     country: string
-//   }
-// }
+export type ResponseType = {
+  items: ResponseUsersType[],
+  totalCount: number,
+  error: string | null
+}
 export type ResponseUsersType = {
   id: number,
   name: string,
@@ -25,59 +21,27 @@ export type ResponseUsersType = {
   uniqueUrlName: string | null,
 }
 
-export type UsersPageStateType = {
-  items: Array<ResponseUsersType>
+export type RequestUsersType = {
+  count: number,
+  page: number,
+  term: string,
+  friend: boolean
 }
 
-let initialState: UsersPageStateType = {
-  items: [
-    // {
-    //   id: 1,
-    //   photoUrl: 'https://www.pngall.com/wp-content/uploads/12/Avatar-Profile-PNG-Photos.png',
-    //   follow: false,
-    //   fullName: 'Dmitry',
-    //   status: 'I am a boss',
-    //   location: {
-    //     city: 'Minsk',
-    //     country: 'Belarus'
-    //   }
-    // },
-    // {
-    //   id: 2,
-    //   photoUrl: 'https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg',
-    //   follow: false,
-    //   fullName: 'Alex',
-    //   status: 'I am a boss to',
-    //   location: {
-    //     city: 'Moscow',
-    //     country: 'Russia'
-    //   }
-    // },
-    // {
-    //   id: 3,
-    //   photoUrl: 'https://thumbs.dreamstime.com/b/female-avatar-profile-picture-vector-female-avatar-profile-picture-vector-102690279.jpg',
-    //   follow: true,
-    //   fullName: 'Olga',
-    //   status: 'Yo',
-    //   location: {
-    //     city: 'Minsk',
-    //     country: 'Belarus'
-    //   }
-    // },
-    // {
-    //   id: 4,
-    //   photoUrl: 'https://images.freeimages.com/365/images/istock/previews/1009/100996291-male-avatar-profile-picture-vector.jpg',
-    //   follow: true,
-    //   fullName: 'Andrey',
-    //   status: 'Hello',
-    //   location: {
-    //     city: 'Warsaw',
-    //     country: 'Poland'
-    //   }
-    // },
-  ]
-};
+// export type UsersPageStateType = {
+//   items: Array<ResponseUsersType>
+//   pageSize: number,
+//   totalUsersCount: number
+//   currentPage: number
+// }
 
+let initialState = {
+  items: [] as ResponseUsersType[],
+  pageSize: 10,
+  totalUsersCount: 0,
+  currentPage: 2
+};
+export type UsersPageStateType = typeof initialState
 const usersReducer = (state: UsersPageStateType = initialState, action: UsersPageActionsType) => {
   switch (action.type) {
     case FOLLOW:
@@ -104,7 +68,15 @@ const usersReducer = (state: UsersPageStateType = initialState, action: UsersPag
       };
     case SET_USERS:
       return {
-        ...state, items: [...state.items, ...action.items]
+        ...state, items: action.items
+      };
+    case SET_CURRENT_PAGE:
+      return {
+        ...state, currentPage: action.value
+      };
+    case SET_TOTAL_COUNT:
+      return {
+        ...state, totalUsersCount: action.count
       };
     default:
       return state;
@@ -114,11 +86,15 @@ const usersReducer = (state: UsersPageStateType = initialState, action: UsersPag
 export const followAC = (userId: number) => ({type: FOLLOW, userId} as const);
 export const unFollowAC = (userId: number) => ({type: UNFOLLOW, userId} as const);
 export const setUsersAC = (items: ResponseUsersType[]) => ({type: SET_USERS, items} as const);
-
+export const setCurrentAC = (value: number) => ({type: SET_CURRENT_PAGE, value} as const);
+export const setTotalCountAC = (count: number) => ({type: SET_TOTAL_COUNT, count} as const);
 
 export type UsersPageActionsType =
   | ReturnType<typeof followAC>
   | ReturnType<typeof unFollowAC>
   | ReturnType<typeof setUsersAC>
+  | ReturnType<typeof setCurrentAC>
+  | ReturnType<typeof setTotalCountAC>
 
 export default usersReducer;
+

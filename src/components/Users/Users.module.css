@@ -11,3 +11,22 @@
 .userContainer button {
     padding: 5px;
 }
+
+.pagesBlock {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    flex-wrap: wrap;
+}
+
+.pagesBlock span {
+    margin-right: 10px;
+
+}
+
+.selected {
+    font-weight: bold;
+}
