@@ -39,7 +39,7 @@ let initialState = {
   items: [] as ResponseUsersType[],
   pageSize: 10,
   totalUsersCount: 0,
-  currentPage: 2
+  currentPage: 1
 };
 export type UsersPageStateType = typeof initialState
 const usersReducer = (state: UsersPageStateType = initialState, action: UsersPageActionsType) => {

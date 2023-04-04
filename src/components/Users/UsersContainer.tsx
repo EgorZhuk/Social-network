@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import Users from './Users';
+import UsersAPIComponent from 'components/Users/UsersAPIComponent';
 import {Dispatch} from 'redux';
 import {followAC, setUsersAC, unFollowAC, ResponseUsersType, setCurrentAC, setTotalCountAC} from 'redux/users-reducer';
 import {AppRootState} from 'redux/redux-store';
@@ -39,6 +39,6 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
 
 
 };
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users);
+const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent);
 
 export default UsersContainer;

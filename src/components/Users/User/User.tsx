@@ -1,6 +1,6 @@
 import React from 'react';
-import s from './User.module.css';
-import user from '../../assets/images/user.png'
+import s from 'components/Users/User/User.module.css';
+import user from 'assets/images/user.png';
 
 type PropsType = {
   id: number,
