@@ -1,8 +1,8 @@
 import React from 'react';
 import s from 'components/Users/Users.module.css';
-import Pagination from 'components/Users/Pagination/Pagination';
 import User from 'components/Users/User/User';
 import {ResponseUsersType} from 'redux/users-reducer';
+import {Pagination} from 'antd';
 
 type PropsType = {
   totalPages: number
@@ -14,13 +14,18 @@ type PropsType = {
 }
 
 const Users = (props: PropsType) => {
+  const onChange = (page: number) => {
+    props.setCurrentPage(page);
+  };
   return (
     <div className={s.userContainer}>
       <div className={s.pagesBlock}>
         <Pagination
-          totalPages={props.totalPages}
-          setCurrentPage={props.setCurrentPage}
-          currentPage={props.currentPage}
+          onChange={onChange}
+          defaultCurrent={1}
+          total={props.totalPages}
+          pageSize={10}
+          showSizeChanger={false}
         />
       </div>
       {

@@ -15,7 +15,6 @@
 .pagesBlock {
     width: 100%;
     display: flex;
-    align-items: center;
     justify-content: center;
     gap: 10px;
     cursor: pointer;
@@ -23,7 +22,7 @@
 }
 
 .pagesBlock span {
-    margin-right: 10px;
+    /*margin-right: 10px;*/
 
 }
 

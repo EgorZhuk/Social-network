@@ -2,20 +2,6 @@ import React from 'react';
 import s from 'components/Users/User/User.module.css';
 import user from 'assets/images/user.png';
 
-type PropsType = {
-  id: number,
-  photoUrl: string
-  follow: boolean
-  fullName: string,
-  status: string,
-  location: {
-    city: string,
-    country: string
-  }
-  followCalback: (userId: number) => void
-  unFollowCalback: (userId: number) => void
-
-}
 type ResponseUsersPropsType = {
   id: number,
   name: string,
@@ -28,7 +14,6 @@ type ResponseUsersPropsType = {
   uniqueUrlName: string | null,
   followCalback: (userId: number) => void
   unFollowCalback: (userId: number) => void
-
 }
 const User = (props: ResponseUsersPropsType) => {
   const buttonClass = (!props.followed) ? s.userFollowBtn : s.userUnfollowBtn;
@@ -46,9 +31,7 @@ const User = (props: ResponseUsersPropsType) => {
             props.followCalback(props.id);
           }}>Follow</button>
         }
-
       </div>
-
       <div className={s.userInfo}>
         <div className={s.userTitle}>
           <p className={s.userName}>{props.name}</p>
@@ -59,11 +42,7 @@ const User = (props: ResponseUsersPropsType) => {
           <p>{'props.location.country'}</p>
         </div>
       </div>
-
     </div>
   );
-
-
 };
-
 export default User;
