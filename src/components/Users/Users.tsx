@@ -1,8 +1,8 @@
 import React from 'react';
 import s from 'components/Users/Users.module.css';
 import User from 'components/Users/User/User';
-import {ResponseUsersType} from 'redux/users-reducer';
-import {Pagination} from 'antd';
+import {ResponseUsersType, setIsFetchingAC} from 'redux/users-reducer';
+import {Pagination, Spin} from 'antd';
 
 type PropsType = {
   totalPages: number
@@ -11,6 +11,7 @@ type PropsType = {
   items: ResponseUsersType[]
   followCalback: (userId: number) => void
   unFollowCalback: (userId: number) => void
+  isFetching: boolean
 }
 
 const Users = (props: PropsType) => {
@@ -19,6 +20,7 @@ const Users = (props: PropsType) => {
   };
   return (
     <div className={s.userContainer}>
+
       <div className={s.pagesBlock}>
         <Pagination
           onChange={onChange}
@@ -28,6 +30,7 @@ const Users = (props: PropsType) => {
           showSizeChanger={false}
         />
       </div>
+      {props.isFetching && <Spin size={'large'} tip={'Loading'}/>}
       {
         props.items.map((u, index) => {
           return (

@@ -3,6 +3,7 @@ const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const SET_TOTAL_COUNT = 'SET-TOTAL-COUNT';
+const SET_LOADER = 'SET-LOADER';
 
 export type ResponseType = {
   items: ResponseUsersType[],
@@ -39,7 +40,8 @@ let initialState = {
   items: [] as ResponseUsersType[],
   pageSize: 10,
   totalUsersCount: 0,
-  currentPage: 1
+  currentPage: 1,
+  isFetching: false
 };
 export type UsersPageStateType = typeof initialState
 const usersReducer = (state: UsersPageStateType = initialState, action: UsersPageActionsType) => {
@@ -78,6 +80,10 @@ const usersReducer = (state: UsersPageStateType = initialState, action: UsersPag
       return {
         ...state, totalUsersCount: action.count
       };
+    case SET_LOADER:
+      return {
+        ...state, isFetching: action.isFetching
+      };
     default:
       return state;
   }
@@ -88,6 +94,7 @@ export const unFollowAC = (userId: number) => ({type: UNFOLLOW, userId} as const
 export const setUsersAC = (items: ResponseUsersType[]) => ({type: SET_USERS, items} as const);
 export const setCurrentAC = (value: number) => ({type: SET_CURRENT_PAGE, value} as const);
 export const setTotalCountAC = (count: number) => ({type: SET_TOTAL_COUNT, count} as const);
+export const setIsFetchingAC = (isFetching: boolean) => ({type: SET_LOADER, isFetching} as const);
 
 export type UsersPageActionsType =
   | ReturnType<typeof followAC>
@@ -95,6 +102,7 @@ export type UsersPageActionsType =
   | ReturnType<typeof setUsersAC>
   | ReturnType<typeof setCurrentAC>
   | ReturnType<typeof setTotalCountAC>
+  | ReturnType<typeof setIsFetchingAC>
 
 export default usersReducer;
 
