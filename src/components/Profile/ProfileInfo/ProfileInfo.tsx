@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './ProfileInfo.module.css';
+import s from './ProfileInfo.module.css';
 import {PropfilePropsType} from 'components/Profile/Profile';
 import {Spin, Card} from 'antd';
 
@@ -8,20 +8,24 @@ export const ProfileInfo = (props: PropfilePropsType) => {
     return <Spin size={'large'} tip={'Loading'}/>;
   }
   return (
-    <div className={classes.profileWrapper}>
+    <div className={s.profileContainer}>
+      <div className={s.profileWrapper}>
+        <div className={s.profileImage}>
+          {props.profile.photos.large ? <img alt="example" src={props.profile.photos.large}/> :
+            <Spin size={'large'} tip={'Loading'}/>}
+        </div>
+        <div className={s.profileInfo}>
+          <p className={s.profileTitle}>Name: <span className={s.profileDescription}>{props.profile.fullName}</span></p>
+          <p className={s.profileTitle}>Description: <span
+            className={s.profileDescription}>{props.profile.lookingForAJobDescription}</span></p>
+          <div className={s.profileContacts}>
 
-      <Card
-        hoverable
-        style={{width: 240}}
-        cover={props.profile.photos.large ? <img alt="example" src={props.profile.photos.large}/> :
-          <Spin size={'large'} tip={'Loading'}/>}>
-        <h3>{`Name: ${props.profile.fullName}`} </h3>
-      </Card>
-      {/*{*/}
-      {/*  props.profile.photos.small ? <img src={props.profile.photos.small} alt=""/> :*/}
-      {/*    <Spin size={'large'} tip={'Loading'}/>*/}
-      {/*}*/}
+          </div>
+        </div>
+
+      </div>
 
     </div>
+
   );
 };

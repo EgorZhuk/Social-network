@@ -1,3 +1,40 @@
-.profileWrapper {
+.profileContainer {
     padding: 20px;
+}
+
+.profileWrapper {
+    height: 200px;
+    display: flex;
+    border-radius: 5px;
+    border: 1px solid #555555;
+    overflow: hidden;
+
+}
+
+.profileImage {
+    height: 100%;
+}
+
+.profileImage img {
+    height: 100%;
+    object-fit: cover;
+}
+
+.profileInfo {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+
+}
+
+.profileTitle {
+    font-weight: bold;
+}
+
+.profileDescription {
+    font-weight: normal;
+}
+
+.profileContacts {
+
 }
