@@ -1,6 +1,7 @@
 import React from 'react';
 import s from 'components/Users/User/User.module.css';
 import user from 'assets/images/user.png';
+import {NavLink} from 'react-router-dom';
 
 type ResponseUsersPropsType = {
   id: number,
@@ -20,9 +21,12 @@ const User = (props: ResponseUsersPropsType) => {
   return (
     <div key={props.id} className={s.userCard}>
       <div className={s.userImage}>
-        <img
-          src={(props.photos.small) ? props.photos.small : user}
-          alt="avatar"/>
+        <NavLink to={'/profile/' + props.id}>
+          <img
+            src={(props.photos.small) ? props.photos.small : user}
+            alt="avatar"/>
+        </NavLink>
+
         {props.followed
           ? <button className={buttonClass} onClick={() => {
             props.unFollowCalback(props.id);

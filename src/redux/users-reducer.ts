@@ -22,19 +22,6 @@ export type ResponseUsersType = {
   uniqueUrlName: string | null,
 }
 
-export type RequestUsersType = {
-  count: number,
-  page: number,
-  term: string,
-  friend: boolean
-}
-
-// export type UsersPageStateType = {
-//   items: Array<ResponseUsersType>
-//   pageSize: number,
-//   totalUsersCount: number
-//   currentPage: number
-// }
 
 let initialState = {
   items: [] as ResponseUsersType[],
