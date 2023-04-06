@@ -1,7 +1,7 @@
 import React from 'react';
 import s from 'components/Users/Users.module.css';
 import User from 'components/Users/User/User';
-import {ResponseUsersType, setIsFetchingAC} from 'redux/users-reducer';
+import {ResponseUsersType} from 'redux/users-reducer';
 import {Pagination, Spin} from 'antd';
 
 type PropsType = {

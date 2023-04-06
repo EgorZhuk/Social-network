@@ -1,13 +1,13 @@
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
 import {
-  followAC,
-  setUsersAC,
-  unFollowAC,
+  follow,
+  setUsers,
+  unFollow,
   ResponseUsersType,
-  setCurrentAC,
-  setTotalCountAC,
-  ResponseType, setIsFetchingAC
+  setCurrentPage,
+  setTotalCount,
+  ResponseType, setLoader
 } from 'redux/users-reducer';
 import {AppRootState} from 'redux/redux-store';
 import React from 'react';
@@ -41,16 +41,16 @@ const mapStateToProps = (state: AppRootState): MapStateToPropsType => {
     isFetching: state.usersPage.isFetching
   };
 };
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
-  return {
-    follow: (userId: number) => dispatch(followAC(userId)),
-    unFollow: (userId: number) => dispatch(unFollowAC(userId)),
-    setUsers: (items: ResponseUsersType[]) => dispatch(setUsersAC(items)),
-    setCurrentPage: (value: number) => dispatch(setCurrentAC(value)),
-    setTotalCount: (count: number) => dispatch(setTotalCountAC(count)),
-    setLoader: isFetching => dispatch(setIsFetchingAC(isFetching))
-  };
-};
+// const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
+//   return {
+//     follow: (userId: number) => dispatch(followAC(userId)),
+//     unFollow: (userId: number) => dispatch(unFollowAC(userId)),
+//     setUsers: (items: ResponseUsersType[]) => dispatch(setUsersAC(items)),
+//     setCurrentPage: (value: number) => dispatch(setCurrentAC(value)),
+//     setTotalCount: (count: number) => dispatch(setTotalCountAC(count)),
+//     setLoader: isFetching => dispatch(setLoaderAC(isFetching))
+//   };
+// };
 
 class UsersAPIComponent extends React.Component<UsersPropsType, AppRootState> {
 
@@ -99,6 +99,8 @@ class UsersAPIComponent extends React.Component<UsersPropsType, AppRootState> {
   }
 }
 
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent);
+const UsersContainer = connect(mapStateToProps, {
+  follow, unFollow, setUsers, setCurrentPage, setTotalCount, setLoader
+})(UsersAPIComponent);
 
 export default UsersContainer;

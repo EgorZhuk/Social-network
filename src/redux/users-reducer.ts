@@ -89,20 +89,20 @@ const usersReducer = (state: UsersPageStateType = initialState, action: UsersPag
   }
 };
 
-export const followAC = (userId: number) => ({type: FOLLOW, userId} as const);
-export const unFollowAC = (userId: number) => ({type: UNFOLLOW, userId} as const);
-export const setUsersAC = (items: ResponseUsersType[]) => ({type: SET_USERS, items} as const);
-export const setCurrentAC = (value: number) => ({type: SET_CURRENT_PAGE, value} as const);
-export const setTotalCountAC = (count: number) => ({type: SET_TOTAL_COUNT, count} as const);
-export const setIsFetchingAC = (isFetching: boolean) => ({type: SET_LOADER, isFetching} as const);
+export const follow = (userId: number) => ({type: FOLLOW, userId} as const);
+export const unFollow = (userId: number) => ({type: UNFOLLOW, userId} as const);
+export const setUsers = (items: ResponseUsersType[]) => ({type: SET_USERS, items} as const);
+export const setCurrentPage = (value: number) => ({type: SET_CURRENT_PAGE, value} as const);
+export const setTotalCount = (count: number) => ({type: SET_TOTAL_COUNT, count} as const);
+export const setLoader = (isFetching: boolean) => ({type: SET_LOADER, isFetching} as const);
 
 export type UsersPageActionsType =
-  | ReturnType<typeof followAC>
-  | ReturnType<typeof unFollowAC>
-  | ReturnType<typeof setUsersAC>
-  | ReturnType<typeof setCurrentAC>
-  | ReturnType<typeof setTotalCountAC>
-  | ReturnType<typeof setIsFetchingAC>
+  | ReturnType<typeof follow>
+  | ReturnType<typeof unFollow>
+  | ReturnType<typeof setUsers>
+  | ReturnType<typeof setCurrentPage>
+  | ReturnType<typeof setTotalCount>
+  | ReturnType<typeof setLoader>
 
 export default usersReducer;
 
