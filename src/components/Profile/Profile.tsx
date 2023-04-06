@@ -3,12 +3,13 @@ import {BgImage} from './BgImage/BgImage';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
 import {UserProfileType} from 'redux/profile-reducer';
+import {ProfileContainerPropsType} from 'components/Profile/ProfileContainer';
 
 export type PropfilePropsType = {
   profile: UserProfileType | null
 
 }
-const Profile = (props: PropfilePropsType) => {
+const Profile = (props: ProfileContainerPropsType) => {
   return (
     <div>
       <BgImage/>
