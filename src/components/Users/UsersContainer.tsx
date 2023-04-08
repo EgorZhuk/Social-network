@@ -6,7 +6,7 @@ import {
   ResponseUsersType,
   setCurrentPage,
   setTotalCount,
-  ResponseType, setLoader
+  setLoader, UserContainerResponseType
 } from 'redux/users-reducer';
 import {AppRootState} from 'redux/redux-store';
 import React from 'react';
@@ -46,7 +46,7 @@ class UsersAPIComponent extends React.Component<UsersPropsType, AppRootState> {
 
   componentDidMount() {
     this.props.setLoader(true);
-    axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+    axios.get<UserContainerResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
 
       .then(res => {
           this.props.setUsers(res.data.items);
@@ -68,7 +68,7 @@ class UsersAPIComponent extends React.Component<UsersPropsType, AppRootState> {
   onClickCurrentPageHandler = (pageNumber: number) => {
     this.props.setCurrentPage(pageNumber);
     this.props.setLoader(true);
-    axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+    axios.get<UserContainerResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
       .then(res => {
           this.props.setUsers(res.data.items);
           this.props.setLoader(false);

@@ -5,7 +5,7 @@ const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const SET_TOTAL_COUNT = 'SET-TOTAL-COUNT';
 const SET_LOADER = 'SET-LOADER';
 
-export type ResponseType = {
+export type UserContainerResponseType = {
   items: ResponseUsersType[],
   totalCount: number,
   error: string | null
@@ -31,7 +31,7 @@ let initialState = {
   isFetching: false
 };
 export type UsersPageStateType = typeof initialState
-const usersReducer = (state: UsersPageStateType = initialState, action: UsersPageActionsType) => {
+export const usersReducer = (state: UsersPageStateType = initialState, action: UsersPageActionsType) => {
   switch (action.type) {
     case FOLLOW:
       return {

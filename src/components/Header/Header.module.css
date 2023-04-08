@@ -4,6 +4,7 @@
     padding: 20px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     border: #B9D7EA 1px solid;
     border-radius: 5px;
 }
@@ -14,4 +15,13 @@
 
 .header img {
     height: 40px;
+}
+
+.loginBlock {
+
+}
+
+.loginBlock a {
+    text-decoration: none;
+    color: #769FCD;
 }

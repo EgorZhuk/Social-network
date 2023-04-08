@@ -14,7 +14,7 @@ type MapDispatchToProps = {
 }
 
 export type ProfileContainerPropsType =
-  MapStateToPropsType & MapDispatchToProps & RouteComponentProps<{ userId?: string }>
+  MapStateToPropsType & MapDispatchToProps & RouteComponentProps<{ userId: string }>
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType, AppRootState> {
   componentDidMount() {
