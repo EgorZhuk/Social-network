@@ -6,7 +6,7 @@ import {
   ResponseUsersType,
   setCurrentPage,
   setTotalCount,
-  setLoader, UserContainerResponseType
+  setLoader, UserContainerGetResponseType, ResponseType
 } from 'redux/users-reducer';
 import {AppRootState} from 'redux/redux-store';
 import React from 'react';
@@ -46,7 +46,10 @@ class UsersAPIComponent extends React.Component<UsersPropsType, AppRootState> {
 
   componentDidMount() {
     this.props.setLoader(true);
-    axios.get<UserContainerResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+    axios.get<UserContainerGetResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
+      withCredentials: true,
+      headers: {'API-KEY': 'c5890106-c6fd-4018-9323-f3f405f33b5d'}
+    })
 
       .then(res => {
           this.props.setUsers(res.data.items);
@@ -60,15 +63,34 @@ class UsersAPIComponent extends React.Component<UsersPropsType, AppRootState> {
     this.props.setUsers(this.props.items);
   };
   followHandler = (userId: number) => {
-    this.props.follow(userId);
+    axios.post<ResponseType>(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {}, {
+      withCredentials: true,
+      headers: {'API-KEY': 'c5890106-c6fd-4018-9323-f3f405f33b5d'}
+    })
+      .then(res => {
+          if (res.data.resultCode === 0) {
+            this.props.follow(userId);
+          }
+        }
+      );
   };
   unFollowHandler = (userId: number) => {
-    this.props.unFollow(userId);
+
+    axios.delete<ResponseType>(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {
+      withCredentials: true,
+      headers: {'API-KEY': 'c5890106-c6fd-4018-9323-f3f405f33b5d'}
+    })
+      .then(res => {
+          if (res.data.resultCode === 0) {
+            this.props.unFollow(userId);
+          }
+        }
+      );
   };
   onClickCurrentPageHandler = (pageNumber: number) => {
     this.props.setCurrentPage(pageNumber);
     this.props.setLoader(true);
-    axios.get<UserContainerResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+    axios.get<UserContainerGetResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
       .then(res => {
           this.props.setUsers(res.data.items);
           this.props.setLoader(false);

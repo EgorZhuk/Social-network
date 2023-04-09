@@ -5,10 +5,15 @@ const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const SET_TOTAL_COUNT = 'SET-TOTAL-COUNT';
 const SET_LOADER = 'SET-LOADER';
 
-export type UserContainerResponseType = {
+export type UserContainerGetResponseType = {
   items: ResponseUsersType[],
   totalCount: number,
   error: string | null
+}
+export type ResponseType<D = {}> = {
+  resultCode: number
+  messages: Array<string>
+  data: D
 }
 export type ResponseUsersType = {
   id: number,
