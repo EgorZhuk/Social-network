@@ -43,14 +43,12 @@ const mapStateToProps = (state: AppRootState): MapStateToPropsType => {
 
 
 class UsersAPIComponent extends React.Component<UsersPropsType, AppRootState> {
-
   componentDidMount() {
     this.props.setLoader(true);
     axios.get<UserContainerGetResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
       withCredentials: true,
       headers: {'API-KEY': 'c5890106-c6fd-4018-9323-f3f405f33b5d'}
     })
-
       .then(res => {
           this.props.setUsers(res.data.items);
           this.props.setTotalCount(res.data.totalCount);
@@ -90,7 +88,9 @@ class UsersAPIComponent extends React.Component<UsersPropsType, AppRootState> {
   onClickCurrentPageHandler = (pageNumber: number) => {
     this.props.setCurrentPage(pageNumber);
     this.props.setLoader(true);
-    axios.get<UserContainerGetResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+    axios.get<UserContainerGetResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {
+      withCredentials: true,
+    })
       .then(res => {
           this.props.setUsers(res.data.items);
           this.props.setLoader(false);
