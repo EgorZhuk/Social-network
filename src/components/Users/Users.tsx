@@ -11,7 +11,8 @@ type PropsType = {
   items: ResponseUsersType[]
   followCalback: (userId: number) => void
   unFollowCalback: (userId: number) => void
-  isFetching: boolean
+  isFetching: boolean,
+  disableInProgress: number[]
 }
 
 const Users = (props: PropsType) => {
@@ -43,7 +44,10 @@ const Users = (props: PropsType) => {
                   uniqueUrlName={u.uniqueUrlName}
               // location={u.location}
                   followCalback={props.followCalback}
-                  unFollowCalback={props.unFollowCalback}/>
+                  unFollowCalback={props.unFollowCalback}
+                  disable={props.disableInProgress}
+
+            />
           );
         })
       }

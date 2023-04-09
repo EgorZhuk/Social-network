@@ -4,6 +4,7 @@ const SET_USERS = 'SET-USERS';
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const SET_TOTAL_COUNT = 'SET-TOTAL-COUNT';
 const SET_LOADER = 'SET-LOADER';
+const IS_DISABLE = 'IS-DISABLE';
 
 export type UserContainerGetResponseType = {
   items: ResponseUsersType[],
@@ -33,7 +34,9 @@ let initialState = {
   pageSize: 10,
   totalUsersCount: 0,
   currentPage: 1,
-  isFetching: false
+  isFetching: false,
+  disabled: true,
+  disableInProgress: [] as number[]
 };
 export type UsersPageStateType = typeof initialState
 export const usersReducer = (state: UsersPageStateType = initialState, action: UsersPageActionsType) => {
@@ -76,6 +79,12 @@ export const usersReducer = (state: UsersPageStateType = initialState, action: U
       return {
         ...state, isFetching: action.isFetching
       };
+    case IS_DISABLE:
+      return {
+        ...state,
+        disableInProgress: action.disable ?
+          [...state.disableInProgress, action.userId] : state.disableInProgress.filter(userId => userId !== action.userId)
+      };
     default:
       return state;
   }
@@ -87,6 +96,7 @@ export const setUsers = (items: ResponseUsersType[]) => ({type: SET_USERS, items
 export const setCurrentPage = (value: number) => ({type: SET_CURRENT_PAGE, value} as const);
 export const setTotalCount = (count: number) => ({type: SET_TOTAL_COUNT, count} as const);
 export const setLoader = (isFetching: boolean) => ({type: SET_LOADER, isFetching} as const);
+export const isDisable = (disable: boolean, userId: number) => ({type: IS_DISABLE, disable, userId} as const);
 
 export type UsersPageActionsType =
   | ReturnType<typeof follow>
@@ -95,6 +105,7 @@ export type UsersPageActionsType =
   | ReturnType<typeof setCurrentPage>
   | ReturnType<typeof setTotalCount>
   | ReturnType<typeof setLoader>
+  | ReturnType<typeof isDisable>
 
 export default usersReducer;
 

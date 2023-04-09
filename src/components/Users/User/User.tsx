@@ -13,6 +13,7 @@ type ResponseUsersPropsType = {
   },
   status: string | null,
   uniqueUrlName: string | null,
+  disable: number[],
   followCalback: (userId: number) => void
   unFollowCalback: (userId: number) => void
 }
@@ -28,10 +29,10 @@ const User = (props: ResponseUsersPropsType) => {
         </NavLink>
 
         {props.followed
-          ? <button className={buttonClass} onClick={() => {
+          ? <button disabled={props.disable.some(id => id === props.id)} className={buttonClass} onClick={() => {
             props.unFollowCalback(props.id);
           }}>Unfollow</button>
-          : <button className={buttonClass} onClick={() => {
+          : <button disabled={props.disable.some(id => id === props.id)} className={buttonClass} onClick={() => {
             props.followCalback(props.id);
           }}>Follow</button>
         }

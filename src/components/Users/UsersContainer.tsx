@@ -6,12 +6,12 @@ import {
   ResponseUsersType,
   setCurrentPage,
   setTotalCount,
-  setLoader, UserContainerGetResponseType, ResponseType
+  setLoader, isDisable
 } from 'redux/users-reducer';
 import {AppRootState} from 'redux/redux-store';
 import React from 'react';
-import axios from 'axios';
 import Users from 'components/Users/Users';
+import userAPI from 'api/api';
 
 
 type MapStateToPropsType = {
@@ -19,7 +19,8 @@ type MapStateToPropsType = {
   pageSize: number,
   totalUsersCount: number
   currentPage: number
-  isFetching: boolean
+  isFetching: boolean,
+  disableInProgress: number[],
 }
 type MapDispatchToProps = {
   follow: (userId: number) => void
@@ -28,6 +29,7 @@ type MapDispatchToProps = {
   setCurrentPage: (value: number) => void
   setTotalCount: (count: number) => void
   setLoader: (isFetching: boolean) => void
+  isDisable: (disable: boolean, userId: number) => void
 }
 
 export type UsersPropsType = MapStateToPropsType & MapDispatchToProps
@@ -37,7 +39,8 @@ const mapStateToProps = (state: AppRootState): MapStateToPropsType => {
     pageSize: state.usersPage.pageSize,
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching
+    isFetching: state.usersPage.isFetching,
+    disableInProgress: state.usersPage.disableInProgress,
   };
 };
 
@@ -45,42 +48,36 @@ const mapStateToProps = (state: AppRootState): MapStateToPropsType => {
 class UsersAPIComponent extends React.Component<UsersPropsType, AppRootState> {
   componentDidMount() {
     this.props.setLoader(true);
-    axios.get<UserContainerGetResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-      withCredentials: true,
-      headers: {'API-KEY': 'c5890106-c6fd-4018-9323-f3f405f33b5d'}
-    })
-      .then(res => {
-          this.props.setUsers(res.data.items);
-          this.props.setTotalCount(res.data.totalCount);
-          this.props.setLoader(false);
-        }
-      );
+    userAPI.getUsers(this.props.currentPage, this.props.pageSize)
+      .then(data => {
+        this.props.setUsers(data.items);
+        this.props.setTotalCount(data.totalCount);
+        this.props.setLoader(false);
+      });
   }
 
   showMoreHandler = () => {
     this.props.setUsers(this.props.items);
   };
   followHandler = (userId: number) => {
-    axios.post<ResponseType>(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {}, {
-      withCredentials: true,
-      headers: {'API-KEY': 'c5890106-c6fd-4018-9323-f3f405f33b5d'}
-    })
-      .then(res => {
-          if (res.data.resultCode === 0) {
+    this.props.isDisable(true, userId);
+    userAPI.followUser(userId)
+      .then(resultCode => {
+          if (resultCode === 0) {
             this.props.follow(userId);
+
+            this.props.isDisable(false, userId);
           }
         }
       );
   };
   unFollowHandler = (userId: number) => {
-
-    axios.delete<ResponseType>(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {
-      withCredentials: true,
-      headers: {'API-KEY': 'c5890106-c6fd-4018-9323-f3f405f33b5d'}
-    })
-      .then(res => {
-          if (res.data.resultCode === 0) {
+    this.props.isDisable(true, userId);
+    userAPI.unFollowUser(userId)
+      .then(resultCode => {
+          if (resultCode === 0) {
             this.props.unFollow(userId);
+            this.props.isDisable(false, userId);
           }
         }
       );
@@ -88,11 +85,9 @@ class UsersAPIComponent extends React.Component<UsersPropsType, AppRootState> {
   onClickCurrentPageHandler = (pageNumber: number) => {
     this.props.setCurrentPage(pageNumber);
     this.props.setLoader(true);
-    axios.get<UserContainerGetResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {
-      withCredentials: true,
-    })
-      .then(res => {
-          this.props.setUsers(res.data.items);
+    userAPI.getUsers(pageNumber, this.props.pageSize)
+      .then(data => {
+          this.props.setUsers(data.items);
           this.props.setLoader(false);
         }
       );
@@ -107,11 +102,12 @@ class UsersAPIComponent extends React.Component<UsersPropsType, AppRootState> {
       followCalback={this.followHandler}
       unFollowCalback={this.unFollowHandler}
       isFetching={this.props.isFetching}
+      disableInProgress={this.props.disableInProgress}
     />;
   }
 }
 
 const UsersContainer = connect(mapStateToProps,
-  {follow, unFollow, setUsers, setCurrentPage, setTotalCount, setLoader})(UsersAPIComponent);
+  {follow, unFollow, setUsers, setCurrentPage, setTotalCount, setLoader, isDisable})(UsersAPIComponent);
 
 export default UsersContainer;
