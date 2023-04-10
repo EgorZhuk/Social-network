@@ -98,6 +98,3 @@ export const getProfile = (userId: string) => (dispatch: AppDispatch) => {
     });
 
 };
-export const addPost = (ewText: string) => (dispatch: AppDispatch) => {
-
-};
