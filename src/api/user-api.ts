@@ -1,18 +1,8 @@
 import axios from 'axios';
 import {UserContainerGetResponseType} from 'redux/users-reducer';
+import {instance} from 'api/api-instance';
+import {apiResponseType} from 'api/api-responseType';
 
-export type apiResponseType<T = {}> = {
-  data: T
-  fieldsErrors: string[]
-  messages: string[]
-  resultCode: 0
-}
-
-const instance = axios.create({
-  baseURL: 'https://social-network.samuraijs.com/api/1.0/',
-  withCredentials: true,
-  headers: {'API-KEY': 'c5890106-c6fd-4018-9323-f3f405f33b5d'}
-});
 
 const userAPI = {
   getUsers(currentPage: number = 1, pageSize: number = 10) {

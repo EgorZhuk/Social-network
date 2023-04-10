@@ -1,4 +1,4 @@
-import userAPI from 'api/api';
+import userAPI from 'api/user-api';
 import {ThunkDispatch} from 'redux-thunk';
 import {AppDispatch} from 'redux/redux-store';
 

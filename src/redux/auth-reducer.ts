@@ -1,3 +1,6 @@
+import {AppDispatch} from 'redux/redux-store';
+import {authApi} from 'api/auth-api';
+
 const SET_USER_DATA = 'SET_USER_DATA';
 
 
@@ -13,13 +16,6 @@ export type AuthStateType = {
   login: string | null
   isAuth: boolean
 }
-
-export type AuthContainerResponseType = {
-  data: AuthStateType,
-  filedsError: [],
-  messages: string[],
-  resultCode: number
-}
 export const authReducer = (state: AuthStateType = initialState, action: AuthActionsType) => {
   switch (action.type) {
     case SET_USER_DATA:
@@ -33,10 +29,22 @@ export const authReducer = (state: AuthStateType = initialState, action: AuthAct
   }
 };
 
-export const setAuthUserData = (data: AuthStateType) => ({
+const setAuthUserData = (data: AuthStateType) => ({
   type: SET_USER_DATA,
   data
 } as const);
+
+export const getAuthUserData = () => (dispatch: AppDispatch) => {
+  authApi.me()
+    .then(data => {
+        if (data.resultCode === 0) {
+          const {id, email, login} = data.data;
+          dispatch(setAuthUserData({id, email, login, isAuth: true}));
+        }
+      }
+    );
+  ;
+};
 
 export type AuthActionsType =
   | ReturnType<typeof setAuthUserData>

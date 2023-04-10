@@ -3,11 +3,11 @@ import {
   addPostAC,
   PostDataType,
   updatePostTextAC
-} from '../../../redux/profile-reducer';
+} from 'redux/profile-reducer';
 import MyPosts from './MyPosts';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
-import {AppRootState} from '../../../redux/redux-store';
+import {AppRootState} from 'redux/redux-store';
 
 
 

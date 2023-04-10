@@ -1,3 +1,6 @@
+import {AppDispatch} from 'redux/redux-store';
+import {profileAPI} from 'api/profile-api';
+
 const ADD_POST = 'ADD-POST';
 const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT';
 const SET_USER = 'SET-USER';
@@ -8,6 +11,7 @@ export type PostDataType = {
   likes: number;
 };
 export type UserProfileType = {
+  aboutMe: string,
   userId: number,
   lookingForAJob: boolean
   lookingForAJobDescription: string
@@ -84,5 +88,16 @@ export const addPostAC = () =>
   ({type: ADD_POST} as const);
 export const updatePostTextAC = (newText: string) =>
   ({type: UPDATE_POST_TEXT, newText: newText,} as const);
-export const setUserProfile = (profile: UserProfileType) =>
+const setUserProfile = (profile: UserProfileType) =>
   ({type: SET_USER, profile} as const);
+
+export const getProfile = (userId: string) => (dispatch: AppDispatch) => {
+  return profileAPI.getProfile(userId)
+    .then(profile => {
+      return dispatch(setUserProfile(profile));
+    });
+
+};
+export const addPost = (ewText: string) => (dispatch: AppDispatch) => {
+
+};
