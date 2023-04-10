@@ -25,7 +25,7 @@ const Users = (props: PropsType) => {
       <div className={s.pagesBlock}>
         <Pagination
           onChange={onChange}
-          defaultCurrent={1}
+          current={props.currentPage}
           total={props.totalPages}
           pageSize={10}
           showSizeChanger={false}

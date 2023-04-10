@@ -1,17 +1,14 @@
 import {connect} from 'react-redux';
 import {
   follow,
-  setUsers,
-  unFollow,
+  unfollow,
   ResponseUsersType,
-  setCurrentPage,
-  setTotalCount,
-  setLoader, isDisable
+  getUsers,
+
 } from 'redux/users-reducer';
 import {AppRootState} from 'redux/redux-store';
 import React from 'react';
 import Users from 'components/Users/Users';
-import userAPI from 'api/api';
 
 
 type MapStateToPropsType = {
@@ -24,12 +21,8 @@ type MapStateToPropsType = {
 }
 type MapDispatchToProps = {
   follow: (userId: number) => void
-  unFollow: (userId: number) => void
-  setUsers: (items: Array<ResponseUsersType>) => void
-  setCurrentPage: (value: number) => void
-  setTotalCount: (count: number) => void
-  setLoader: (isFetching: boolean) => void
-  isDisable: (disable: boolean, userId: number) => void
+  unfollow: (userId: number) => void
+  getUsers: (currentPage: number, pageSize: number) => void
 }
 
 export type UsersPropsType = MapStateToPropsType & MapDispatchToProps
@@ -47,50 +40,17 @@ const mapStateToProps = (state: AppRootState): MapStateToPropsType => {
 
 class UsersAPIComponent extends React.Component<UsersPropsType, AppRootState> {
   componentDidMount() {
-    this.props.setLoader(true);
-    userAPI.getUsers(this.props.currentPage, this.props.pageSize)
-      .then(data => {
-        this.props.setUsers(data.items);
-        this.props.setTotalCount(data.totalCount);
-        this.props.setLoader(false);
-      });
+    this.props.getUsers(this.props.currentPage, this.props.pageSize);
   }
 
-  showMoreHandler = () => {
-    this.props.setUsers(this.props.items);
-  };
   followHandler = (userId: number) => {
-    this.props.isDisable(true, userId);
-    userAPI.followUser(userId)
-      .then(resultCode => {
-          if (resultCode === 0) {
-            this.props.follow(userId);
-
-            this.props.isDisable(false, userId);
-          }
-        }
-      );
+    this.props.follow(userId);
   };
   unFollowHandler = (userId: number) => {
-    this.props.isDisable(true, userId);
-    userAPI.unFollowUser(userId)
-      .then(resultCode => {
-          if (resultCode === 0) {
-            this.props.unFollow(userId);
-            this.props.isDisable(false, userId);
-          }
-        }
-      );
+    this.props.unfollow(userId);
   };
   onClickCurrentPageHandler = (pageNumber: number) => {
-    this.props.setCurrentPage(pageNumber);
-    this.props.setLoader(true);
-    userAPI.getUsers(pageNumber, this.props.pageSize)
-      .then(data => {
-          this.props.setUsers(data.items);
-          this.props.setLoader(false);
-        }
-      );
+    this.props.getUsers(pageNumber, this.props.pageSize);
   };
 
   render() {
@@ -108,6 +68,10 @@ class UsersAPIComponent extends React.Component<UsersPropsType, AppRootState> {
 }
 
 const UsersContainer = connect(mapStateToProps,
-  {follow, unFollow, setUsers, setCurrentPage, setTotalCount, setLoader, isDisable})(UsersAPIComponent);
+  {
+    follow,
+    unfollow,
+    getUsers
+  })(UsersAPIComponent);
 
 export default UsersContainer;

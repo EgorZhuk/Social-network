@@ -1,3 +1,7 @@
+import userAPI from 'api/api';
+import {ThunkDispatch} from 'redux-thunk';
+import {AppDispatch} from 'redux/redux-store';
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
@@ -90,17 +94,51 @@ export const usersReducer = (state: UsersPageStateType = initialState, action: U
   }
 };
 
-export const follow = (userId: number) => ({type: FOLLOW, userId} as const);
-export const unFollow = (userId: number) => ({type: UNFOLLOW, userId} as const);
-export const setUsers = (items: ResponseUsersType[]) => ({type: SET_USERS, items} as const);
-export const setCurrentPage = (value: number) => ({type: SET_CURRENT_PAGE, value} as const);
-export const setTotalCount = (count: number) => ({type: SET_TOTAL_COUNT, count} as const);
-export const setLoader = (isFetching: boolean) => ({type: SET_LOADER, isFetching} as const);
-export const isDisable = (disable: boolean, userId: number) => ({type: IS_DISABLE, disable, userId} as const);
+const followSucces = (userId: number) => ({type: FOLLOW, userId} as const);
+const unFollowSucces = (userId: number) => ({type: UNFOLLOW, userId} as const);
+const setUsers = (items: ResponseUsersType[]) => ({type: SET_USERS, items} as const);
+const setCurrentPage = (value: number) => ({type: SET_CURRENT_PAGE, value} as const);
+const setTotalCount = (count: number) => ({type: SET_TOTAL_COUNT, count} as const);
+const setLoader = (isFetching: boolean) => ({type: SET_LOADER, isFetching} as const);
+const isDisable = (disable: boolean, userId: number) => ({type: IS_DISABLE, disable, userId} as const);
+
+export const getUsers = (currentPage: number, pageSize: number) => (dispatch: AppDispatch) => {
+  dispatch(setLoader(true));
+  userAPI.getUsers(currentPage, pageSize)
+    .then(data => {
+      dispatch(setCurrentPage(currentPage));
+      dispatch(setUsers(data.items));
+      dispatch(setTotalCount(data.totalCount));
+      dispatch(setLoader(false));
+    });
+};
+export const follow = (userId: number) => (dispatch: AppDispatch) => {
+  dispatch(isDisable(true, userId));
+  userAPI.followUser(userId)
+    .then(resultCode => {
+        if (resultCode === 0) {
+          dispatch(followSucces(userId));
+          dispatch(isDisable(false, userId));
+        }
+      }
+    );
+};
+export const unfollow = (userId: number) => (dispatch: AppDispatch) => {
+  dispatch(isDisable(true, userId));
+  userAPI.unFollowUser(userId)
+    .then(resultCode => {
+        if (resultCode === 0) {
+          dispatch(unFollowSucces(userId));
+          dispatch(isDisable(false, userId));
+        }
+      }
+    );
+};
+
 
 export type UsersPageActionsType =
-  | ReturnType<typeof follow>
-  | ReturnType<typeof unFollow>
+  | ReturnType<typeof followSucces>
+  | ReturnType<typeof unFollowSucces>
   | ReturnType<typeof setUsers>
   | ReturnType<typeof setCurrentPage>
   | ReturnType<typeof setTotalCount>
