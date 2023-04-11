@@ -1,9 +1,13 @@
 // import React from 'react';
-import {DialogsDataType, MessagesDataType, sendNewMessageAC, updateNewMessageBodyAC} from '../../redux/dialogs-reducer';
+import {DialogsDataType, MessagesDataType, sendNewMessageAC, updateNewMessageBodyAC} from 'redux/dialogs-reducer';
 import {Dialogs} from './Dialogs';
 import {connect} from 'react-redux';
-import {AppRootState} from '../../redux/redux-store';
+import {AppRootState} from 'redux/redux-store';
 import {Dispatch} from 'redux';
+import {Redirect} from 'react-router-dom';
+import React from 'react';
+import {ProfileContainerPropsType} from 'components/Profile/ProfileContainer';
+import {withAuthRedirect} from 'hoc/withAuthRedirect';
 
 //
 type MapStateToPropsType = {
@@ -33,5 +37,6 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
     updateMessageBody: (body: string) => dispatch(updateNewMessageBodyAC(body))
   };
 };
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+
+const DialogsContainer = withAuthRedirect(connect(mapStateToProps, mapDispatchToProps)(Dialogs));
 export default DialogsContainer;
