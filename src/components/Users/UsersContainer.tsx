@@ -9,6 +9,8 @@ import {
 import {AppRootState} from 'redux/redux-store';
 import React from 'react';
 import Users from 'components/Users/Users';
+import {withAuthRedirect} from 'hoc/withAuthRedirect';
+import {compose} from 'redux';
 
 
 type MapStateToPropsType = {
@@ -67,11 +69,13 @@ class UsersAPIComponent extends React.Component<UsersPropsType, AppRootState> {
   }
 }
 
-const UsersContainer = connect(mapStateToProps,
-  {
-    follow,
-    unfollow,
-    getUsers
-  })(UsersAPIComponent);
 
-export default UsersContainer;
+export default compose<React.ComponentType>(
+  connect(mapStateToProps,
+    {
+      follow,
+      unfollow,
+      getUsers
+    }),
+  withAuthRedirect
+)(UsersAPIComponent);
