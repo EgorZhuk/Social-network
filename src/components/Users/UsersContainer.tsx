@@ -71,11 +71,6 @@ class UsersAPIComponent extends React.Component<UsersPropsType, AppRootState> {
 
 
 export default compose<React.ComponentType>(
-  connect(mapStateToProps,
-    {
-      follow,
-      unfollow,
-      getUsers
-    }),
+  connect(mapStateToProps, {follow, unfollow, getUsers}),
   withAuthRedirect
 )(UsersAPIComponent);

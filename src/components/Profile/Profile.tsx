@@ -4,6 +4,7 @@ import {ProfileInfo} from './ProfileInfo/ProfileInfo';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
 import {UserProfileType} from 'redux/profile-reducer';
 import {ProfileContainerPropsType} from 'components/Profile/ProfileContainer';
+import ProfileStatus from 'components/Profile/ProfileStatus';
 
 export type PropfilePropsType = {
   profile: UserProfileType | null
@@ -12,11 +13,10 @@ export type PropfilePropsType = {
 const Profile = (props: ProfileContainerPropsType) => {
   return (
     <div>
-      <BgImage/>
+      {/*<BgImage/>*/}
       <ProfileInfo profile={props.profile}/>
-      <MyPostsContainer
-
-      />
+      <ProfileStatus status={'hello'}/>
+      <MyPostsContainer/>
     </div>
   );
 };
