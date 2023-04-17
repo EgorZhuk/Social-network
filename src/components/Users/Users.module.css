@@ -1,11 +1,8 @@
 .userContainer {
-    /*margin: 10px;*/
     display: flex;
     flex-direction: column;
     gap: 10px;
     flex-wrap: wrap;
-    padding: 20px;
-
 }
 
 .userContainer button {
@@ -22,7 +19,6 @@
 }
 
 .pagesBlock span {
-    /*margin-right: 10px;*/
 
 }
 
