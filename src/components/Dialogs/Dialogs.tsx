@@ -3,7 +3,6 @@ import classes from './Dialogs.module.css';
 import {DialogItem} from './DialogItem/DialogItem';
 import {Message} from './Message/Message';
 import {DialogsPropsType} from './DialogsContainer';
-import {Redirect} from 'react-router-dom';
 
 export const Dialogs = (props: DialogsPropsType) => {
   const onChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -16,7 +15,7 @@ export const Dialogs = (props: DialogsPropsType) => {
   let dialogsData = props.dialogsData.map(el => <DialogItem key={el.id} name={el.name} id={el.id}
                                                             url={el.url}/>);
   let messagesData = props.messageData.map(el => <Message key={el.id} message={el.message}/>);
-  
+
   return (
     <div className={classes.dialogs}>
       <div className={classes.dialogsItems}>

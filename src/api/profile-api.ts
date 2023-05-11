@@ -7,6 +7,21 @@ export const profileAPI = {
       .then(res => {
         return res.data;
       });
+  },
+  getStatus(userId: string) {
+    return instance.get<string>(`/profile/status/${userId}`);
+
+  },
+  updateStatus(status: string) {
+    return instance.put<ResponseStatusType>('/profile/status', {status});
 
   }
 };
+
+export type ResponseStatusType = {
+  resultcode: number
+  messages: string[]
+  data: any
+}
+
+//todo 73: 18:50

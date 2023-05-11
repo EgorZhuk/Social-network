@@ -8,6 +8,8 @@ import ProfileStatus from 'components/Profile/ProfileStatus';
 
 export type PropfilePropsType = {
   profile: UserProfileType | null
+  status?: string | null
+  updateStatus: (status: string) => void
 
 }
 const Profile = (props: ProfileContainerPropsType) => {
@@ -15,7 +17,8 @@ const Profile = (props: ProfileContainerPropsType) => {
     <div>
       {/*<BgImage/>*/}
       <ProfileInfo profile={props.profile}/>
-      <ProfileStatus status={'hello'}/>
+      <ProfileStatus updateStatus={props.updateStatus} status={props.status ? props.status : '---'}/>
+
       <MyPostsContainer/>
     </div>
   );

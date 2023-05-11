@@ -1,18 +1,21 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 
 type ProfileStatusPropsType = {
   status: string
+  updateStatus: (status: string) => void
 }
-type ProfileLocalStateType = {}
+type ProfileLocalStateType = {
+  editMode: boolean,
+  status: string | null
+}
 
 class ProfileStatus extends React.Component<ProfileStatusPropsType, ProfileLocalStateType> {
   state = {
-    editMode: false
+    editMode: false,
+    status: this.props.status
   };
 
   activateEditMode = () => {
-    debugger
-    console.log('this:', this);
     this.setState({
       editMode: true
     });
@@ -22,7 +25,21 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType, ProfileLocal
     this.setState({
       editMode: false
     });
+    this.props.updateStatus(this.state.status);
   };
+  onStatusCange = (e: ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      status: e.currentTarget.value
+    });
+  };
+
+  componentDidUpdate(prevProps: Readonly<ProfileStatusPropsType>, prevState: Readonly<ProfileLocalStateType>, snapshot?: any) {
+    if (prevProps.status !== this.props.status) {
+      this.setState({
+        status: this.props.status
+      });
+    }
+  }
 
   render() {
     return (
@@ -30,13 +47,14 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType, ProfileLocal
         {
           !this.state.editMode &&
             <div>
-              <span onDoubleClick={this.activateEditMode}>{this.props.status}</span>
+              <span onDoubleClick={this.activateEditMode}>{this.state.status}</span>
             </div>
         }
         {
           this.state.editMode &&
             <div>
-              <input autoFocus={true} defaultValue={this.props.status} onBlur={this.deActivateEditMode}></input>
+              <input onChange={(event) => this.onStatusCange(event)} autoFocus={true} defaultValue={this.state.status}
+                     onBlur={this.deActivateEditMode}></input>
             </div>
         }
 
