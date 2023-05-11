@@ -5,6 +5,8 @@ import {sidebarReducer} from './sidebar-reducer';
 import {friendsReducer} from './friends-reducer';
 import {usersReducer} from './users-reducer';
 import {authReducer} from 'redux/auth-reducer';
+import {reducer as formReducer} from 'redux-form';
+
 import thunk from 'redux-thunk';
 
 const rootReducer = combineReducers({
@@ -13,7 +15,8 @@ const rootReducer = combineReducers({
   sidebar: sidebarReducer,
   friendsPage: friendsReducer,
   usersPage: usersReducer,
-  auth: authReducer
+  auth: authReducer,
+  form: formReducer,
 });
 
 
