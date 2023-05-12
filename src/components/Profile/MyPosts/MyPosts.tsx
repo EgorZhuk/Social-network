@@ -2,6 +2,7 @@ import React, {ChangeEvent} from 'react';
 import classes from './MyPosts.module.css';
 import Post from './Post/Post';
 import {MyPostsPropsType} from './MyPostsContainer';
+import {AddItemFormType, AddItemReduxForm} from 'components/AddItemForm/AddItemForm';
 
 const MyPosts = (props: MyPostsPropsType) => {
 
@@ -11,26 +12,17 @@ const MyPosts = (props: MyPostsPropsType) => {
     message={el.message}
     likes={el.likes}/>);
 
-  const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    let newPost = e.currentTarget.value;
-    props.updateNewPostText(newPost);
-  };
-
-  const onAddPost = () => {
-    props.addPost();
+  const onAddPost = (values: AddItemFormType) => {
+    props.addPost(values.newText);
   };
 
   return (
     <div className={classes.contentWrapper}>
       <h3>My posts</h3>
       <div className={classes.addPost}>
-        <textarea
-          onChange={onPostChange}
-          value={props.value}
-          placeholder={'Enter post text'}/>
-        <button onClick={onAddPost}>Add post
-        </button>
+        <AddItemReduxForm children={'post'} onSubmit={onAddPost}/>
       </div>
+
       {renderedPosts}
     </div>
   );

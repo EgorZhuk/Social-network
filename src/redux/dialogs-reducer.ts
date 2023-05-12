@@ -66,7 +66,7 @@ export const dialogsReducer = (state: DialogsPageStateType = initialState, actio
     case 'SEND-MESSAGE':
       return {
         ...state,
-        messagesData: [...state.messagesData, {id: 4, message: state.newMessageBody}],
+        messagesData: [...state.messagesData, {id: 4, message: action.body}],
         newMessageBody: ''
       };
 
@@ -81,6 +81,6 @@ export const dialogsReducer = (state: DialogsPageStateType = initialState, actio
   }
 };
 
-export const sendNewMessageAC = () => ({type: SEND_MESSAGE} as const);
+export const sendNewMessageAC = (newMessage: string) => ({type: SEND_MESSAGE, body: newMessage} as const);
 export const updateNewMessageBodyAC = (newMessage: string) =>
   ({type: UPDATE_NEW_MESSAGE_BODY, newMessageBody: newMessage,} as const);

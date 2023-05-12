@@ -3,14 +3,12 @@ import classes from './Dialogs.module.css';
 import {DialogItem} from './DialogItem/DialogItem';
 import {Message} from './Message/Message';
 import {DialogsPropsType} from './DialogsContainer';
+import {AddItemFormType, AddItemReduxForm} from 'components/AddItemForm/AddItemForm';
 
 export const Dialogs = (props: DialogsPropsType) => {
-  const onChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    let body = event.currentTarget.value;
-    props.updateMessageBody(body);
-  };
-  const onClickHandler = () => {
-    props.sendMessage();
+
+  const addNewMessage = (values: AddItemFormType) => {
+    props.sendMessage(values.newText);
   };
   let dialogsData = props.dialogsData.map(el => <DialogItem key={el.id} name={el.name} id={el.id}
                                                             url={el.url}/>);
@@ -25,11 +23,7 @@ export const Dialogs = (props: DialogsPropsType) => {
       <div className={classes.messages}>
         {messagesData}
       </div>
-      <div>
-        <textarea onChange={onChangeHandler} placeholder={'Enter your message'}
-                  value={props.newMessageBody}></textarea>
-        <button onClick={onClickHandler}>Send message</button>
-      </div>
+      <AddItemReduxForm children={'message'} onSubmit={addNewMessage}/>
     </div>
   );
 };
