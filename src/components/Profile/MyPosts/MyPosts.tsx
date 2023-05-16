@@ -1,8 +1,8 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import classes from './MyPosts.module.css';
 import Post from './Post/Post';
 import {MyPostsPropsType} from './MyPostsContainer';
-import {AddItemFormType, AddItemReduxForm} from 'components/AddItemForm/AddItemForm';
+import AddItemForm, {AddItemFormType} from 'components/AddItemForm/AddItemForm';
 
 const MyPosts = (props: MyPostsPropsType) => {
 
@@ -20,7 +20,7 @@ const MyPosts = (props: MyPostsPropsType) => {
     <div className={classes.contentWrapper}>
       <h3>My posts</h3>
       <div className={classes.addPost}>
-        <AddItemReduxForm children={'post'} onSubmit={onAddPost}/>
+        <AddItemForm children={'post'} onSubmit={onAddPost}/>
       </div>
 
       {renderedPosts}

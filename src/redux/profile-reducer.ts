@@ -111,7 +111,6 @@ export const getProfile = (userId: string) => (dispatch: AppDispatch) => {
 export const getStatus = (userId: string) => (dispatch: AppDispatch) => {
   return profileAPI.getStatus(userId)
     .then(status => {
-      console.log(status);
       return dispatch(setUserStatus(status.data));
     });
 };

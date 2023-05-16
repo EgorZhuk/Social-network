@@ -1,9 +1,9 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import classes from './Dialogs.module.css';
 import {DialogItem} from './DialogItem/DialogItem';
 import {Message} from './Message/Message';
 import {DialogsPropsType} from './DialogsContainer';
-import {AddItemFormType, AddItemReduxForm} from 'components/AddItemForm/AddItemForm';
+import AddItemForm, {AddItemFormType} from 'components/AddItemForm/AddItemForm';
 
 export const Dialogs = (props: DialogsPropsType) => {
 
@@ -23,7 +23,7 @@ export const Dialogs = (props: DialogsPropsType) => {
       <div className={classes.messages}>
         {messagesData}
       </div>
-      <AddItemReduxForm children={'message'} onSubmit={addNewMessage}/>
+      <AddItemForm children={'message'} onSubmit={addNewMessage}/>
     </div>
   );
 };

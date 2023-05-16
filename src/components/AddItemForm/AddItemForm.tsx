@@ -1,24 +1,36 @@
 import React, {FC} from 'react';
 import {Field, InjectedFormProps, reduxForm} from 'redux-form';
+import {maxLengthCreator, requiredField} from 'utils/validators/validators';
+import s from './AddItemForm.module.css';
+import {Button} from 'antd';
 
 export type AddItemFormType = {
   newText: string
 }
+type PropsType = {
+  placeholder?: string
+}
+const maxLength = maxLengthCreator(10);
 const AddItemForm: FC<InjectedFormProps<AddItemFormType>> = (props) => {
+  const {handleSubmit, children} = props;
+
   return (
-    <form onSubmit={props.handleSubmit}>
-      <Field component={'textarea'}
-             name={'newText'}
-             placeholder={'Enter your ' + props.children}
+    <form onSubmit={handleSubmit}>
+      <Field
+        component={'textarea'}
+        name={'newText'}
+        placeholder={'Enter your ' + children}
+        validate={[requiredField, maxLength]}
+        className={s.textField}
       >
 
       </Field>
-      <button>Add {props.children}</button>
+      <Button htmlType={'submit'}>Add {props.children}</Button>
     </form>
   );
 };
 
 // export default AddItemForm;
-export const AddItemReduxForm = reduxForm<AddItemFormType>({
+export default reduxForm<AddItemFormType, PropsType>({
   form: 'addItemForm'
 })(AddItemForm);

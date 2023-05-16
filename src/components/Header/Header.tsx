@@ -2,6 +2,7 @@ import React from 'react';
 import s from './Header.module.css';
 import {NavLink} from 'react-router-dom';
 import {HeaderContainerPropsType} from 'components/Header/HeaderContainer';
+import UserMenu from 'components/UserMenu/UserMenu';
 
 
 const Header = (props: HeaderContainerPropsType) => {
@@ -13,7 +14,9 @@ const Header = (props: HeaderContainerPropsType) => {
 
       <div className={s.loginBlock}>
         {
-          props.isAuth ? <div>{props.login}</div> : <NavLink to={'/login'}>Login</NavLink>
+          props.isAuth ?
+            <div><UserMenu children={props.login}/></div> :
+            <NavLink to={'/login'}>Login</NavLink>
         }
       </div>
     </header>

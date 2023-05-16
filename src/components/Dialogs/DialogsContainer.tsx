@@ -3,8 +3,9 @@ import React from 'react';
 import {DialogsDataType, MessagesDataType, sendNewMessageAC, updateNewMessageBodyAC} from 'redux/dialogs-reducer';
 import {Dialogs} from './Dialogs';
 import {connect} from 'react-redux';
-import {AppRootState} from 'redux/redux-store';
+import store, {AppRootState} from 'redux/redux-store';
 import {compose, Dispatch} from 'redux';
+import {reset} from 'redux-form';
 
 import {withAuthRedirect} from 'hoc/withAuthRedirect';
 
