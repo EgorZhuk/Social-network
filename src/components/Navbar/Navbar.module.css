@@ -9,8 +9,14 @@
 .item {
     cursor: pointer;
     text-decoration: none;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 
+}
+
+.itemContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .item a {
