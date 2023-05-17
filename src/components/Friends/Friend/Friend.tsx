@@ -1,23 +1,45 @@
 import React from 'react';
-import classes from '../Friends.module.css';
-import {FriendsDataType} from '../../../redux/friends-reducer';
+import s from 'components/Users/User/User.module.css';
+import {NavLink} from 'react-router-dom';
+import user from 'assets/images/user.png';
 
 type PropsType = {
-  friendsData: FriendsDataType[]
+  id: number,
+  name: string,
+  followed: boolean,
+  photos: {
+    small: string | null,
+    large: string | null
+  },
+  status: string | null,
+  uniqueUrlName: string | null,
+  disable: number[],
 }
 
 export const Friend = (props: PropsType) => {
-
-  let friendsForRender = props.friendsData.map(el =>
-    <div key={el.id} className={classes.friendCard}>
-      <img src={el.url} className={classes.img} alt={'friendAvatar'}/>
-      <p>{el.name}</p>
-    </div>);
-
   return (
-    <div className={classes.friendsWrapper}>
-      {friendsForRender}
+    <div key={props.id} className={s.userCard}>
+      <div className={s.userImage}>
+        <NavLink to={'/profile/' + props.id}>
+          <img
+            src={(props.photos.small) ? props.photos.small : user}
+            alt="avatar"/>
+        </NavLink>
+
+      </div>
+      <div className={s.userInfo}>
+        <div className={s.userTitle}>
+          <p className={s.userName}>{props.name}</p>
+          <p className={s.userStatus}>{props.status}</p>
+        </div>
+        <div className={s.userLocation}>
+          <p>{'props.location.city'},</p>
+          <p>{'props.location.country'}</p>
+        </div>
+      </div>
     </div>
   );
+
+
 };
 

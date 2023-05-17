@@ -46,7 +46,7 @@ const Navbar = () => {
   </div>);
   return <nav className={classes.nav}>
     {navbarMenu}
-    <FriendsContainer/>
+
   </nav>;
 };
 
