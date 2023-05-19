@@ -10,10 +10,17 @@ export const authApi = {
         }
       );
   },
-  login(data: any) {
-    return instance.post('auth/login', {...data});
+  login(data: LoginDataType) {
+    return instance.post<apiResponseType<AuthStateType>>('auth/login', {...data});
   },
   logout() {
-    return instance.delete('auth/login');
+    return instance.post('auth/logout');
   }
 };
+
+export type LoginDataType = {
+  email: string
+  password: string
+  rememberMe: boolean
+  captcha?: string
+}

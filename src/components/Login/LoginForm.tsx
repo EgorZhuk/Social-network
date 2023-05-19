@@ -1,30 +1,46 @@
 import React, {FC} from 'react';
 import {Field, InjectedFormProps, reduxForm} from 'redux-form';
+import s from './LoginForm.module.css';
+import {Button} from 'antd';
+import {emailValidation, requiredField} from 'utils/validators/validators';
 
 export type FormDataType = {
-  login: string
+  email: string
   password: string
   rememberMe: boolean
 }
 const LoginForm: FC<InjectedFormProps<FormDataType>> = (props) => {
   return (
+    <div>
+      <form onSubmit={props.handleSubmit} className={s.loginFormContainer}>
+        <div>
+          <Field placeholder={'Email'}
+                 autoComplete={'username'}
+                 name={'email'}
+                 component={'input'}
+                 type={'email'}
+            // validate={[requiredField, emailValidation]}
+                 className={s.loginFormInput}/>
+        </div>
+        <div>
+          <Field placeholder={'Password'}
+                 autoComplete={'current-password'}
+                 name={'password'}
+                 component={'input'}
+                 type={'password'}
+                 className={s.loginFormInput}/>
+        </div>
+        <div>
+          <Field type="checkbox" name={'rememberMe'} component={'input'}/> Remember me
+        </div>
+        <div>
+          <Button type="primary" className={s.loginFormButton} htmlType={'submit'}>Login</Button>
+        </div>
+      </form>
+    </div>
 
-    <form onSubmit={props.handleSubmit}>
-      <div>
-        <Field placeholder={'Login'} name={'login'} component={'input'}/>
-      </div>
-      <div>
-        <Field placeholder={'Password'} name={'password'} component={'input'}/>
-      </div>
-      <div>
-        <Field type="checkbox" name={'rememberMe'} component={'input'}/> Remember me
-      </div>
-      <div>
-        <button>Login</button>
-      </div>
-    </form>
   );
 };
-export const LoginReduxForm = reduxForm<FormDataType>({
+export default reduxForm<FormDataType>({
   form: 'login'
 })(LoginForm);

@@ -1,5 +1,5 @@
 import {AppDispatch} from 'redux/redux-store';
-import {authApi} from 'api/auth-api';
+import {authApi, LoginDataType} from 'api/auth-api';
 
 const SET_USER_DATA = 'SET_USER_DATA';
 
@@ -21,8 +21,8 @@ export const authReducer = (state: AuthStateType = initialState, action: AuthAct
     case SET_USER_DATA:
       return {
         ...state,
-        ...action.data,
-        isAuth: action.data.isAuth
+        ...action.payload,
+        isAuth: action.payload.isAuth
       };
     default:
       return state;
@@ -31,7 +31,7 @@ export const authReducer = (state: AuthStateType = initialState, action: AuthAct
 
 const setAuthUserData = (data: AuthStateType) => ({
   type: SET_USER_DATA,
-  data
+  payload: data
 } as const);
 
 export const getAuthUserData = () => (dispatch: AppDispatch) => {
@@ -44,6 +44,20 @@ export const getAuthUserData = () => (dispatch: AppDispatch) => {
       }
     );
   ;
+};
+export const userLogin = (loginData: LoginDataType) => (dispatch: AppDispatch) => {
+  authApi.login({...loginData})
+    .then(res => {
+      if (res.data.resultCode === 0) {
+        dispatch(getAuthUserData());
+      }
+    });
+};
+export const userLogout = () => (dispatch: AppDispatch) => {
+  authApi.logout()
+    .then(res => {
+      dispatch(setAuthUserData({id: null, email: null, login: null, isAuth: false}));
+    });
 };
 
 export type AuthActionsType =

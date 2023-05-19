@@ -15,7 +15,7 @@ const Header = (props: HeaderContainerPropsType) => {
       <div className={s.loginBlock}>
         {
           props.isAuth ?
-            <div><UserMenu children={props.login}/></div> :
+            <div><UserMenu userLogout={props.userLogout} children={props.login}/></div> :
             <NavLink to={'/login'}>Login</NavLink>
         }
       </div>

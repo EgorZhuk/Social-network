@@ -15,7 +15,7 @@ const AddItemForm: FC<InjectedFormProps<AddItemFormType>> = (props) => {
   const {handleSubmit, children} = props;
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={s.formContainer}>
       <Field
         component={'textarea'}
         name={'newText'}

@@ -22,7 +22,7 @@
     color: #555555;
 }
 
-form {
+.formContainer {
     min-width: 300px;
     display: flex;
     flex-direction: column;
