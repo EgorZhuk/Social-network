@@ -21,7 +21,5 @@ export const profileAPI = {
 export type ResponseStatusType = {
   resultcode: number
   messages: string[]
-  data: any
+  data: UserProfileType
 }
-
-//todo 73: 18:50

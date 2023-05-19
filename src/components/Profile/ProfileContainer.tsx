@@ -38,18 +38,12 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType, AppRoo
       </div>
     );
   }
-
-
 };
 let mapStateToProps = (state: AppRootState): MapStateToPropsType => ({
   profile: state.profilePage.userProfile,
   status: state.profilePage.status
 });
 
-// let AuthRedirectComponent = (props: ProfileContainerPropsType) => {
-//
-//   return <ProfileContainer {...props}/>;
-// };
 
 
 export default compose<React.ComponentType>(
