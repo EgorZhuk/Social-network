@@ -14,8 +14,8 @@ type MapStateToPropsType = {
 
 }
 type MapDispatchToProps = {
-  getProfile: (userId: string) => void
-  getStatus: (userId: string) => void
+  getProfile: (userId: number) => void
+  getStatus: (userId: number) => void
   updateStatus: (status: string) => void
 }
 
@@ -24,13 +24,19 @@ export type ProfileContainerPropsType =
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType, AppRootState> {
   componentDidMount() {
-    let userId: string = this.props.match.params.userId;
+    let userId: number | null = +this.props.match.params.userId;
     if (!userId) {
-      userId = String(this.props.authorizedUserId);
+      userId = this.props.authorizedUserId;
+      if (!userId) {
+        this.props.history.push('/login');
+      }
     }
-    this.props.getProfile(userId);
-    this.props.getStatus(userId);
-
+    if (!userId) {
+      console.error('ID should exists in URI params or in state (\'authorizedUserId\')');
+    } else {
+      this.props.getProfile(userId);
+      this.props.getStatus(userId);
+    }
   }
 
   render() {

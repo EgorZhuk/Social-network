@@ -101,14 +101,14 @@ const setUserStatus = (status: string) => ({type: SET_STATUS, status} as const);
 const updateUserStatus = (status: string) => ({type: UPDATE_STATUS, status} as const);
 
 
-export const getProfile = (userId: string) => (dispatch: AppDispatch) => {
+export const getProfile = (userId: number) => (dispatch: AppDispatch) => {
   return profileAPI.getProfile(userId)
     .then(profile => {
       return dispatch(setUserProfile(profile));
     });
 
 };
-export const getStatus = (userId: string) => (dispatch: AppDispatch) => {
+export const getStatus = (userId: number) => (dispatch: AppDispatch) => {
   return profileAPI.getStatus(userId)
     .then(status => {
       return dispatch(setUserStatus(status.data));

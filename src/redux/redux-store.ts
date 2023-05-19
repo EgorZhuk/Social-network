@@ -8,6 +8,7 @@ import {authReducer} from 'redux/auth-reducer';
 import {reducer as formReducer} from 'redux-form';
 
 import thunk from 'redux-thunk';
+import {appReducer} from 'redux/app-reducer';
 
 const rootReducer = combineReducers({
   profilePage: profileReducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   usersPage: usersReducer,
   auth: authReducer,
   form: formReducer,
+  app: appReducer
 });
 
 

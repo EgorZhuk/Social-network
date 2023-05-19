@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {FC} from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {BrowserRouter, Route, withRouter} from 'react-router-dom';
 import {News} from 'components/News/News';
 import {Music} from 'components/Music/Music';
 import {Settings} from 'components/Settings/Settings';
@@ -11,10 +11,23 @@ import ProfileContainer from 'components/Profile/ProfileContainer';
 import HeaderContainer from 'components/Header/HeaderContainer';
 import Login from 'components/Login/Login';
 import FriendsContainer from 'components/Friends/FriendsContainer';
+import {connect, Provider} from 'react-redux';
+import store, {AppRootState} from 'redux/redux-store';
+import {compose} from 'redux';
+import {initializeApp} from 'redux/app-reducer';
+import {Spin} from 'antd';
 
-function App() {
-  return (
-    <BrowserRouter>
+class App extends React.Component<AppContainerPropsType, AppRootState> {
+  componentDidMount() {
+    this.props.initializeApp();
+  }
+
+  render() {
+    if (!this.props.initialized) {
+      return (
+        <Spin size={'large'} tip={'Loading'}/>);
+    }
+    return (
       <div className="app-wrapper">
         <HeaderContainer/>
         <Navbar/>
@@ -30,8 +43,31 @@ function App() {
 
         </div>
       </div>
-    </BrowserRouter>
-  );
+    );
+  }
 }
 
-export default App;
+type MapStateToProps = {
+  initialized: boolean
+}
+type MapDispatchToProps = {
+  initializeApp: () => void
+}
+const mapStateToProps = (state: AppRootState): MapStateToProps => ({
+  initialized: state.app.initialized
+});
+type AppContainerPropsType = MapStateToProps & MapDispatchToProps
+
+const AppContainer = compose<React.ComponentType>(
+  withRouter,
+  connect(mapStateToProps, {initializeApp}))(App);
+
+const SocialNetworkApp: FC = () => {
+  return <BrowserRouter>
+    <Provider store={store}>
+      <AppContainer/>
+    </Provider>
+  </BrowserRouter>;
+};
+
+export default SocialNetworkApp;
