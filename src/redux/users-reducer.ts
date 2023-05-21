@@ -47,7 +47,7 @@ export const usersReducer = (state: UsersPageStateType = initialState, action: U
     case FOLLOW:
       return {
         ...state,
-        items: state.items.map((user) => {
+        users: state.items.map((user) => {
           if (user.id === action.userId) {
             return {...user, followed: true};
           }
@@ -58,7 +58,7 @@ export const usersReducer = (state: UsersPageStateType = initialState, action: U
     case UNFOLLOW:
       return {
         ...state,
-        items: state.items.map((user) => {
+        users: state.items.map((user) => {
           if (user.id === action.userId) {
             return {...user, followed: false};
           }

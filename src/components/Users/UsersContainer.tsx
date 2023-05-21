@@ -2,8 +2,7 @@ import {connect} from 'react-redux';
 import {
   follow,
   unfollow,
-  ResponseUsersType,
-  getUsers,
+  ResponseUsersType, getUsers,
 
 } from 'redux/users-reducer';
 import {AppRootState} from 'redux/redux-store';
